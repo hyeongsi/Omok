@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{b3c5d01c-1c22-42ad-a893-03fd1f578c25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{765d5be3-0bd7-4ce7-a284-30b4b82dce45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\01. Header">
+      <UniqueIdentifier>{57da9407-ef18-4a48-a36b-fa5ff2c5eb42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Core">
+      <UniqueIdentifier>{afb72d3b-5f37-4c30-8c94-0d1c62293f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager">
+      <UniqueIdentifier>{c2e42e6c-5d7d-41b4-8310-eddd897594e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object">
+      <UniqueIdentifier>{03c61aad-b2ba-4be5-9ae9-745b1e6fe3a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene">
+      <UniqueIdentifier>{c893a61f-ac90-4473-9f45-16210c7cc8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\SceneMgr">
+      <UniqueIdentifier>{671ec671-b497-4e7b-970d-f4dc3c310525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene\InGameScene">
+      <UniqueIdentifier>{620ea064-d5ed-4378-8eba-d1bf8a5002fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\EventMgr">
+      <UniqueIdentifier>{8d6b44bb-0e6c-4653-b0d0-310ea21ead58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. Module">
+      <UniqueIdentifier>{ed6af6bf-f819-4950-b32d-3eea1a1ad128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\OmokBall">
+      <UniqueIdentifier>{674259af-3b2b-41e4-a1b5-2c5e9ca085e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\OmokBoard">
+      <UniqueIdentifier>{8f6fbe98-d7f2-4405-ba76-6bd0795e2d2e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="define.h">
+      <Filter>Engine\01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>Engine\01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="CCore.h">
+      <Filter>Engine\02. Core</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>Engine\03. Manager\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CObject.h">
+      <Filter>Engine\04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="COmokBall.h">
+      <Filter>Engine\04. Object\OmokBall</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Engine\05. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CInGameScene.h">
+      <Filter>Engine\05. Scene\InGameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CEventMgr.h">
+      <Filter>Engine\03. Manager\EventMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="COmokBoard.h">
+      <Filter>Engine\04. Object\OmokBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="CSelectGDI.h">
+      <Filter>Engine\06. Module</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Omok.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Omok.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="CCore.cpp">
+      <Filter>Engine\02. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>Engine\03. Manager\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CObject.cpp">
+      <Filter>Engine\04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="COmokBall.cpp">
+      <Filter>Engine\04. Object\OmokBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>Engine\05. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CInGameScene.cpp">
+      <Filter>Engine\05. Scene\InGameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventMgr.cpp">
+      <Filter>Engine\03. Manager\EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="COmokBoard.cpp">
+      <Filter>Engine\04. Object\OmokBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="CSelectGDI.cpp">
+      <Filter>Engine\06. Module</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
