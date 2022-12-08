@@ -38,10 +38,16 @@
     <Filter Include="Engine\06. Module">
       <UniqueIdentifier>{ed6af6bf-f819-4950-b32d-3eea1a1ad128}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\04. Object\OmokBall">
+    <Filter Include="Engine\03. Manager\GameMgr">
+      <UniqueIdentifier>{146c2df9-ee51-4616-9a32-903f094a5ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\KeyMGr">
+      <UniqueIdentifier>{1cbcceac-c87e-4c8f-9356-ac57c1783b32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\Stone">
       <UniqueIdentifier>{674259af-3b2b-41e4-a1b5-2c5e9ca085e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\04. Object\OmokBoard">
+    <Filter Include="Engine\04. Object\Board">
       <UniqueIdentifier>{8f6fbe98-d7f2-4405-ba76-6bd0795e2d2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -71,8 +77,8 @@
     <ClInclude Include="CObject.h">
       <Filter>Engine\04. Object</Filter>
     </ClInclude>
-    <ClInclude Include="COmokBall.h">
-      <Filter>Engine\04. Object\OmokBall</Filter>
+    <ClInclude Include="CStone.h">
+      <Filter>Engine\04. Object\Stone</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>Engine\05. Scene</Filter>
@@ -83,11 +89,17 @@
     <ClInclude Include="CEventMgr.h">
       <Filter>Engine\03. Manager\EventMgr</Filter>
     </ClInclude>
-    <ClInclude Include="COmokBoard.h">
-      <Filter>Engine\04. Object\OmokBoard</Filter>
+    <ClInclude Include="CBoard.h">
+      <Filter>Engine\04. Object\Board</Filter>
     </ClInclude>
     <ClInclude Include="CSelectGDI.h">
       <Filter>Engine\06. Module</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameMgr.h">
+      <Filter>Engine\03. Manager\GameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>Engine\03. Manager\KeyMGr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,8 +126,8 @@
     <ClCompile Include="CObject.cpp">
       <Filter>Engine\04. Object</Filter>
     </ClCompile>
-    <ClCompile Include="COmokBall.cpp">
-      <Filter>Engine\04. Object\OmokBall</Filter>
+    <ClCompile Include="CStone.cpp">
+      <Filter>Engine\04. Object\Stone</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>Engine\05. Scene</Filter>
@@ -126,11 +138,17 @@
     <ClCompile Include="CEventMgr.cpp">
       <Filter>Engine\03. Manager\EventMgr</Filter>
     </ClCompile>
-    <ClCompile Include="COmokBoard.cpp">
-      <Filter>Engine\04. Object\OmokBoard</Filter>
+    <ClCompile Include="CBoard.cpp">
+      <Filter>Engine\04. Object\Board</Filter>
     </ClCompile>
     <ClCompile Include="CSelectGDI.cpp">
       <Filter>Engine\06. Module</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameMgr.cpp">
+      <Filter>Engine\03. Manager\GameMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>Engine\03. Manager\KeyMGr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ private:
 
 public:
 	void AddObject(CObject* _obj, GROUP_TYPE _eType) { m_arrObj[(UINT)_eType].emplace_back(_obj); }
+	const vector<CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
 	void DeleteObjAll();
 
 public:

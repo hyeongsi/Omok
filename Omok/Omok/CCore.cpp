@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "CCore.h"
 
+#include "CKeyMgr.h"
 #include "CSceneMgr.h"
+#include "CGameMgr.h"
 
 CCore::CCore()
 	: m_hInst()
@@ -12,13 +14,20 @@ CCore::CCore()
 	, m_hBitmap()
 	, m_bitmapInfo()
 	, m_bMenu(true)
-	, m_woodBrush(nullptr)
-	, m_blackBrush(nullptr)
 {}
 
 CCore::~CCore()
 {
-	DeleteObject(m_woodBrush);
+	for (int i = 0; i < (UINT)PEN_TYPE::END; i++)
+		DeleteObject(m_arrPen[i]);
+
+	for (int i = 0; i < (UINT)BRUSH_TYPE::END; i++)
+	{
+		if((UINT)BRUSH_TYPE::HOLLOW != i)
+			DeleteObject(m_arrBrush[i]);
+	}
+		
+
 	DeleteObject(m_hBitmap);
 	DeleteDC(m_hBDC);
 	ReleaseDC(m_hWnd, m_hDC);
@@ -40,11 +49,11 @@ void CCore::Init(HINSTANCE _hInst, HWND _hWnd)
 	ChangeWindowSize(m_ptResolution, m_bMenu);
 	// 归滚欺 积己
 	CreateHDC();
-	// brush 积己
-	m_woodBrush = CreateSolidBrush(COLORREF(RGB(244, 176, 77)));
-	m_blackBrush = CreateSolidBrush(COLORREF(RGB(0, 0, 0)));
+	// brush, pen 积己
+	CreateBrushPen();
 
 	// Mgr Init
+	CKeyMgr::GetInst()->Init();
 	CSceneMgr::GetInst()->Init();
 }
 
@@ -56,8 +65,9 @@ void CCore::Progress()
 
 void CCore::Update()
 {
+	CKeyMgr::GetInst()->Update();
 	CSceneMgr::GetInst()->Update();
-
+	CGameMgr::GetInst()->Update();
 }
 
 void CCore::Render()
@@ -68,8 +78,6 @@ void CCore::Render()
 	// Mgr Render
 	CSceneMgr::GetInst()->Render(m_hBDC);
 	
-
-
 	// Render
 	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y, m_hBDC, 0, 0, SRCCOPY);
 }
@@ -94,4 +102,14 @@ void CCore::CreateHDC()
 
 	GetObject(m_hBitmap, sizeof(BITMAP), &m_bitmapInfo);
 	assert(m_hBitmap);
+}
+
+void CCore::CreateBrushPen()
+{
+	m_arrBrush[(UINT)BRUSH_TYPE::WOOD] = CreateSolidBrush(COLORREF(RGB(244, 176, 77)));
+	m_arrBrush[(UINT)BRUSH_TYPE::BLACK] = CreateSolidBrush(COLORREF(RGB(0, 0, 0)));
+	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+
+	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, COLORREF(RGB(0, 255, 0)));
+	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, COLORREF(RGB(255, 0, 0)));
 }

@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "CInGameScene.h"
 
-#include "COmokBoard.h"
-#include "COmokBall.h"
+#include "CBoard.h"
+#include "CStone.h"
 
 CInGameScene::CInGameScene()
 {
@@ -12,11 +12,17 @@ CInGameScene::~CInGameScene()
 {
 }
 
+
+void CInGameScene::Update()
+{
+	CScene::Update();
+}
+
 void CInGameScene::Enter()
 {
 	// create object
-	COmokBoard* omokBoard = new COmokBoard();
-	AddObject(omokBoard, GROUP_TYPE::OMOK_BOARD);
+	CBoard* board = new CBoard();
+	AddObject(board, GROUP_TYPE::BOARD);
 }
 
 void CInGameScene::Exit()

@@ -3,7 +3,7 @@
 
 class CTexture;
 
-class COmokBall :
+class CStone :
     public CObject
 {
 private:
@@ -16,7 +16,7 @@ public:
     virtual void Update();
     virtual void Render(HDC _dc);
 
-    COmokBall();
-    virtual ~COmokBall();
+    CStone();
+    virtual ~CStone();
 };
 

@@ -14,8 +14,8 @@ private:
 	
 	bool		m_bMenu;
 
-	HBRUSH		m_woodBrush;
-	HBRUSH		m_blackBrush;
+	HBRUSH	m_arrBrush[(UINT)BRUSH_TYPE::END];
+	HPEN	m_arrPen[(UINT)PEN_TYPE::END];
 
 public:
 	static CCore* GetInst();
@@ -24,8 +24,12 @@ public:
 
 	POINT GetResolution() { return m_ptResolution; }
 
-	HBRUSH GetWoodBrush() { return m_woodBrush; }
-	HBRUSH GetBlackBrush() { return m_blackBrush; }
+	HBRUSH GetBrush(BRUSH_TYPE _eType) { return m_arrBrush[(UINT)_eType]; }
+	HPEN GetPEN(PEN_TYPE _eType) { return m_arrPen[(UINT)_eType]; }
+
+public:
+	void CreateBrushPen();
+
 public:
 	void Init(HINSTANCE _hInst, HWND _hWnd);
 	void Progress();

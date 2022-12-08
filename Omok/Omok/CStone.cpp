@@ -1,21 +1,21 @@
 #include "pch.h"
-#include "COmokBall.h"
+#include "CStone.h"
 
 #include "CCore.h"
 
-COmokBall::COmokBall()
+CStone::CStone()
 {
 }
 
-COmokBall::~COmokBall()
+CStone::~CStone()
 {
 }
 
-void COmokBall::Update()
+void CStone::Update()
 {
 }
 
-void COmokBall::Render(HDC _dc)
+void CStone::Render(HDC _dc)
 {
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
