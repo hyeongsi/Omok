@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CSelectGDI.h"
 
 CSelectGDI::CSelectGDI(HDC _dc, HPEN _hpen)

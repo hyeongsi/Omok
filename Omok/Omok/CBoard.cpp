@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CBoard.h"
 
 #include "CCore.h"
@@ -13,7 +13,7 @@ CBoard::CBoard()
 	float xScale = float(OMOK_BOARD_SIZE_X * OMOK_BOARD_COUNT);
 	float yScale = float(OMOK_BOARD_SIZE_Y * OMOK_BOARD_COUNT);
 
-	// ¾ç¿·¿¡ °¡·Î¼¼·Î Å©±âÀÇ ¿©À¯ °ø°£ Ãß°¡
+	// ì–‘ì˜†ì— ê°€ë¡œì„¸ë¡œ í¬ê¸°ì˜ ì—¬ìœ  ê³µê°„ ì¶”ê°€
 	int marginX = OMOK_BOARD_SIZE_X * 2;
 	int marginY = OMOK_BOARD_SIZE_Y * 2;
 	xScale += marginX;
@@ -21,7 +21,7 @@ CBoard::CBoard()
 
 	SetScale(Vec2(xScale, yScale));
 
-	// È­¸é Áß¾ÓÀ¸·Î ¼¼ÆÃ
+	// í™”ë©´ ì¤‘ì•™ìœ¼ë¡œ ì„¸íŒ…
 	POINT resolution = CCore::GetInst()->GetResolution();
 	SetPos(Vec2(resolution.x / 2.f, resolution.y / 2.f));
 
@@ -59,12 +59,12 @@ void CBoard::Update()
 
 void CBoard::Render(HDC _dc)
 {
-	DrawBoardRect(_dc); // ¹ÙµÏÆÇ ±×¸®±â
-	DrawBoardLine(_dc);	// ¹ÙµÏÆÇ ³»ºÎ ¼± ±×¸®±â
-	DrawBoardDot(_dc);	// ¹ÙµÏÆÇ ³»ºÎ Á¡ ±×¸®±â
+	DrawBoardRect(_dc); // ë°”ë‘‘íŒ ê·¸ë¦¬ê¸°
+	DrawBoardLine(_dc);	// ë°”ë‘‘íŒ ë‚´ë¶€ ì„  ê·¸ë¦¬ê¸°
+	DrawBoardDot(_dc);	// ë°”ë‘‘íŒ ë‚´ë¶€ ì  ê·¸ë¦¬ê¸°
 
 	if(CGameMgr::GetInst()->GetIsDebugMode())
-		DrawBoardInfo(_dc);	// ¹ÙµÏÆÇ Á¤º¸ ±×¸®±â
+		DrawBoardInfo(_dc);	// ë°”ë‘‘íŒ ì •ë³´ ê·¸ë¦¬ê¸°
 }
 
 Vec2 CBoard::GetLT()
@@ -75,7 +75,7 @@ Vec2 CBoard::GetLT()
 	int marginX = OMOK_BOARD_SIZE_X;
 	int marginY = OMOK_BOARD_SIZE_Y;
 
-	// ¸¶Áø°ø°£ Á¦¿ÜÇÏ°í ¼±À» ±×¸± LeftTop, RightBottom À§Ä¡ °è»ê
+	// ë§ˆì§„ê³µê°„ ì œì™¸í•˜ê³  ì„ ì„ ê·¸ë¦´ LeftTop, RightBottom ìœ„ì¹˜ ê³„ì‚°
 	Vec2 vLt = Vec2(pos.x - scale.x / 2.f + marginX, pos.y - scale.y / 2.f + marginY);
 
 	return vLt;
@@ -89,7 +89,7 @@ Vec2 CBoard::GetRB()
 	int marginX = OMOK_BOARD_SIZE_X;
 	int marginY = OMOK_BOARD_SIZE_Y;
 
-	// ¸¶Áø°ø°£ Á¦¿ÜÇÏ°í ¼±À» ±×¸± LeftTop, RightBottom À§Ä¡ °è»ê
+	// ë§ˆì§„ê³µê°„ ì œì™¸í•˜ê³  ì„ ì„ ê·¸ë¦´ LeftTop, RightBottom ìœ„ì¹˜ ê³„ì‚°
 	Vec2 vRb = Vec2(pos.x + scale.x / 2.f - marginX, pos.y + scale.y / 2.f - marginY);
 
 	return vRb;
@@ -114,14 +114,14 @@ void CBoard::DrawBoardLine(HDC _dc)
 	Vec2 vRb = GetRB();
 
 	int bCount = OMOK_BOARD_COUNT;
-	// °¡·Î ¼±
+	// ê°€ë¡œ ì„ 
 	for (int i = 0; i <= OMOK_BOARD_COUNT; i++)
 	{
 		int y = (int)vLt.y + (i * OMOK_BOARD_SIZE_Y);
 		MoveToEx(_dc, (int)vLt.x, y, NULL);
 		LineTo(_dc, (int)vRb.x, y);
 	}
-	// ¼¼·Î ¼±
+	// ì„¸ë¡œ ì„ 
 	for (int i = 0; i <= OMOK_BOARD_COUNT; i++)
 	{
 		int x = (int)vLt.x + (i * OMOK_BOARD_SIZE_X);

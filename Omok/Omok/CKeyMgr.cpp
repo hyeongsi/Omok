@@ -1,9 +1,9 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CKeyMgr.h"
 
 #include "CCore.h"
 
-// KEY¿Í ¸ÅÄªµÇ´Â VK ¼¼ÆÃ
+// KEYì™€ ë§¤ì¹­ë˜ëŠ” VK ì„¸íŒ…
 int g_arrVK[(int)KEY::LAST] =
 {
 	'C',
@@ -31,7 +31,7 @@ CKeyMgr* CKeyMgr::GetInst()
 
 void CKeyMgr::Init()
 {
-	// ¸ğµç ÀÔ·Â Å° ÃÊ±âÈ­
+	// ëª¨ë“  ì…ë ¥ í‚¤ ì´ˆê¸°í™”
 	for (int i = 0; i < (int)KEY::LAST; i++)
 	{
 		m_vecKey.emplace_back(tKeyInfo{ KEY_STATE::NONE, false });

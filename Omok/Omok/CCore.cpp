@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CCore.h"
 
 #include "CKeyMgr.h"
@@ -44,12 +44,12 @@ void CCore::Init(HINSTANCE _hInst, HWND _hWnd)
 	m_hInst = _hInst;
 	m_hWnd = _hWnd;
 
-	// Å¬¶óÀÌ¾ğÆ® »çÀÌÁî ¼³Á¤
+	// í´ë¼ì´ì–¸íŠ¸ ì‚¬ì´ì¦ˆ ì„¤ì •
 	m_ptResolution = POINT{ 1280, 768 };
 	ChangeWindowSize(m_ptResolution, m_bMenu);
-	// ¹é¹öÆÛ »ı¼º
+	// ë°±ë²„í¼ ìƒì„±
 	CreateHDC();
-	// brush, pen »ı¼º
+	// brush, pen ìƒì„±
 	CreateBrushPen();
 
 	// Mgr Init
@@ -72,7 +72,7 @@ void CCore::Update()
 
 void CCore::Render()
 {
-	// È­¸é Clear
+	// í™”ë©´ Clear
 	Rectangle(m_hBDC, -1, -1, m_ptResolution.x + 1, m_ptResolution.y + 1);
 
 	// Mgr Render
