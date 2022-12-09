@@ -17,6 +17,7 @@ CGameMgr::CGameMgr()
 	, m_bDebugMode(false)
 	, m_pBoard(nullptr)
 	, m_pDotUI(nullptr)
+	, m_uiId(0)
 {
 }
 
@@ -43,6 +44,7 @@ void CGameMgr::PlacementStone(int index)
 	CStone* pStone = m_pBoard->m_vBoardInfo[index];
 	// 돌 색상 변경
 	pStone->SetInfo(m_eTurn);
+	pStone->SetSequence(++m_uiId);
 
 	// ui 위치 활성화, 위치 조정
 	m_pDotUI->SetEnable(true);
@@ -64,6 +66,8 @@ void CGameMgr::Init(CBoard* pBoard)
 	pDotUI->SetScale(Vec2(5.f, 5.f));
 	CSceneMgr::GetInst()->GetCurScene()->AddObject(pDotUI, GROUP_TYPE::UI);
 	m_pDotUI = pDotUI;
+
+	m_uiId = 0;
 }
 
 void CGameMgr::Update()

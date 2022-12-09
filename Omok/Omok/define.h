@@ -67,3 +67,9 @@ enum class PEN_TYPE
 
 	END,
 };
+
+enum class COLORREF_TYPE
+{
+	BACKGROUND,
+	TEXT,
+};

@@ -13,6 +13,8 @@ private:
 	CBoard*			m_pBoard;
 	CDotUI*			m_pDotUI;
 
+	UINT			m_uiId;
+
 public:
 	void SetGameState(GAME_STATE _e) { m_eGameState = _e; }
 	GAME_STATE GetGameState() { return m_eGameState; }

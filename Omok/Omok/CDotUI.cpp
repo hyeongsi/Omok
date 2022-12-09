@@ -4,6 +4,8 @@
 #include "CCore.h"
 #include "CSelectGDI.h"
 
+#include "CGameMgr.h"
+
 CDotUI::CDotUI()
 	: m_bEnable(false)
 {
@@ -22,6 +24,9 @@ void CDotUI::Render(HDC _dc)
 {
 	if (m_bEnable)
 	{
+		if (CGameMgr::GetInst()->IsDebugMode())
+			return;
+
 		Vec2 pos = GetPos();
 		Vec2 scale = GetScale();
 
