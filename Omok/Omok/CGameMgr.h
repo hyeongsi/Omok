@@ -1,32 +1,37 @@
 ﻿#pragma once
 
+class CBoard;
 class CDotUI;
 
 class CGameMgr
 {
 private:
 	GAME_STATE		m_eGameState;
-	bool			m_bBlackTurn;
+	STONE_INFO		m_eTurn;
 	bool			m_bDebugMode;
 
+	CBoard*			m_pBoard;
 	CDotUI*			m_pDotUI;
 
 public:
 	void SetGameState(GAME_STATE _e) { m_eGameState = _e; }
 	GAME_STATE GetGameState() { return m_eGameState; }
 
-	bool GetIsBlackTurn() { return m_bBlackTurn; }
-	bool GetIsDebugMode() { return m_bDebugMode; }
+	STONE_INFO GetTurn() { return m_eTurn; }
+	bool IsDebugMode() { return m_bDebugMode; }
 
-	void SkipTurn() { m_bBlackTurn = !m_bBlackTurn; }
-
-	void SetDotUI(CDotUI* _dotUI) { m_pDotUI = _dotUI; }
 	CDotUI* GetDotUI() { return m_pDotUI; }
 
 	static CGameMgr* GetInst();
 
 public:
+	void SkipTurn();
+	void PlacementStone(int index);
+
+public:
+	void Init(CBoard* pBoard);
 	void Update();
+	void Render(HDC _dc);
 
 private:
 	CGameMgr();

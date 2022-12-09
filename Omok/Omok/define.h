@@ -27,8 +27,7 @@ constexpr int OMOK_BOARD_SIZE_Y = 36;
 enum class EVENT_TYPE
 {
 	CREATE_OBJECT,
-	CHANGE_GAME_STATE,
-	ENABLE_DOT_UI,
+	PLACEMENT_STONE,
 	SKIP_TURN,
 
 	END,
@@ -36,7 +35,7 @@ enum class EVENT_TYPE
 
 enum class GAME_STATE
 {
-	BEFORE_PLAY,
+	NONE,
 	PLAY,
 	VICTORY,
 	END

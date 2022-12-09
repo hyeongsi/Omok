@@ -81,6 +81,7 @@ void CCore::Render()
 
 	// Mgr Render
 	CSceneMgr::GetInst()->Render(m_hBDC);
+	CGameMgr::GetInst()->Render(m_hBDC);
 	
 	// Render
 	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y, m_hBDC, 0, 0, SRCCOPY);

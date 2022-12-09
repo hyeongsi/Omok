@@ -43,24 +43,13 @@ void CEventMgr::Excute(const tEvent& _eve)
 		CSceneMgr::GetInst()->GetCurScene()->AddObject(pNewObj, eType);
 	}
 		break;
-	case EVENT_TYPE::CHANGE_GAME_STATE:
+	case EVENT_TYPE::PLACEMENT_STONE:
 	{
-		// lParam : GAME_STATE
-		GAME_STATE eState = (GAME_STATE)_eve.lParam;
-		CGameMgr::GetInst()->SetGameState(eState);
+		// lParam : m_vBoardInfo index
+		int index = (int)_eve.lParam;
+		CGameMgr::GetInst()->PlacementStone(index);
 	}
 		break;
-	case EVENT_TYPE::ENABLE_DOT_UI:
-	{
-		// lParam : pos x
-		// wParam : pos y
-		float xPos = (float)_eve.lParam;
-		float yPos = (float)_eve.wParam;
-		CDotUI* pDotUI = CGameMgr::GetInst()->GetDotUI();
-		pDotUI->SetPos(Vec2(xPos, yPos));
-		pDotUI->SetEnable(true);
-	}
-	break;
 	case EVENT_TYPE::SKIP_TURN:
 		CGameMgr::GetInst()->SkipTurn();
 		break;

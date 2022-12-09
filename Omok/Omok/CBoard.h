@@ -1,35 +1,31 @@
 ﻿#pragma once
 
 #include "CObject.h"
-
-struct tBoardInfo
-{
-    STONE_INFO  eStoneInfo;
-    Vec2        vPos;
-    Vec2        vScale;
-};
+class CStone;
 
 class CBoard :
     public CObject
 {
 private:
-    vector<tBoardInfo> m_vBoard;  
+    vector<CStone*> m_vBoardInfo;
 
 public:
     Vec2 GetLT();
     Vec2 GetRB();
 
 private:
-    void LandStone();
-    void CreateStone(const Vec2& pos, const Vec2& scale, int index);
+    void Placement();
+    void PlaceStone(int index);
 
-    void DrawBoardRect(HDC _dc);
+    void DrawBoardBody(HDC _dc);
     void DrawBoardLine(HDC _dc);
     void DrawBoardDot(HDC _dc);
-    void DrawBoardInfo(HDC _dc);
+
+    void DrawRect(HDC _dc, Vec2 pos, Vec2 scale);
 
 public:
-
+    void AddStone(CStone* _pStone) { m_vBoardInfo.emplace_back(_pStone); }
+    void DrawDebugModeBoard(HDC _dc);
 
 public:
     virtual void Update();
@@ -38,5 +34,6 @@ public:
     CBoard();
     virtual ~CBoard();
 
+    friend class CGameMgr;
 };
 

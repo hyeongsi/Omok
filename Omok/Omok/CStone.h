@@ -1,17 +1,15 @@
 ﻿#pragma once
 #include "CObject.h"
 
-class CTexture;
-
 class CStone :
     public CObject
 {
 private:
-    bool isBlack;
+    STONE_INFO m_eStoneInfo;
 
 public:
-    void SetBlack(bool _b) { isBlack = _b; }
-    bool IsBlack() { return isBlack; }
+    void SetInfo(STONE_INFO _eType) { m_eStoneInfo = _eType; }
+    STONE_INFO GetStoneInfo() { return m_eStoneInfo; }
 
 public:
     virtual void Update();
