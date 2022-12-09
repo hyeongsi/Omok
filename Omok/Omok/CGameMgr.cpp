@@ -5,10 +5,13 @@
 #include "CSceneMgr.h"
 
 #include "CKeyMgr.h"
+#include "CEventMgr.h"
 
 #include "CStone.h"
 #include "CBoard.h"
 #include "CDotUI.h"
+
+#include "CCore.h"
 
 
 CGameMgr::CGameMgr()
@@ -31,6 +34,16 @@ CGameMgr* CGameMgr::GetInst()
 	return &instance;
 }
 
+bool CGameMgr::IsEnd()
+{
+	if (KEY_STATE::HOLD == CKeyMgr::GetInst()->GetKeyState(KEY::C))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void CGameMgr::SkipTurn()
 {
 	if (STONE_INFO::BLACK == m_eTurn)
@@ -50,8 +63,34 @@ void CGameMgr::PlacementStone(int index)
 	m_pDotUI->SetEnable(true);
 	m_pDotUI->SetPos(pStone->GetPos());
 
-	// 턴 넘기기
-	SkipTurn();
+	if (!IsEnd())
+		SkipTurn();
+	else
+		m_eGameState = GAME_STATE::VICTORY;
+}
+
+void CGameMgr::Victory(STONE_INFO _e)
+{
+	switch (_e)
+	{
+	case STONE_INFO::NONE:
+		assert(nullptr);
+		break;
+	case STONE_INFO::BLACK:
+	{
+		wstring victoryMessage = L"Black Win";
+		MessageBox(CCore::GetInst()->GetMainHwnd(), victoryMessage.c_str(), L"Victory", MB_OK);
+		m_eGameState = GAME_STATE::END;
+	}
+		break;
+	case STONE_INFO::WHITE:
+	{
+		wstring victoryMessage = L"White Win";
+		MessageBox(CCore::GetInst()->GetMainHwnd(), victoryMessage.c_str(), L"Victory", MB_OK);
+		m_eGameState = GAME_STATE::END;
+	}
+		break;
+	}
 }
 
 void CGameMgr::Init(CBoard* pBoard)
@@ -77,9 +116,22 @@ void CGameMgr::Update()
 	if (!GetFocus())
 		return;
 
-	if (KEY_STATE::AWAY == CKeyMgr::GetInst()->GetKeyState(KEY::F1))
+	if (GAME_STATE::VICTORY == m_eGameState)
 	{
-		m_bDebugMode = !m_bDebugMode;
+		Victory(m_eTurn);
+	}
+	else if (GAME_STATE::END == m_eGameState)
+	{
+		tEvent endGameEvent;
+		endGameEvent.eEven = EVENT_TYPE::RESTART_GAME;
+		CEventMgr::GetInst()->AddEvent(endGameEvent);
+	}
+	else
+	{
+		if (KEY_STATE::AWAY == CKeyMgr::GetInst()->GetKeyState(KEY::F1))
+		{
+			m_bDebugMode = !m_bDebugMode;
+		}
 	}
 }
 

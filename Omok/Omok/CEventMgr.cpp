@@ -53,6 +53,13 @@ void CEventMgr::Excute(const tEvent& _eve)
 	case EVENT_TYPE::SKIP_TURN:
 		CGameMgr::GetInst()->SkipTurn();
 		break;
+	case EVENT_TYPE::RESTART_GAME:
+	{
+		CScene* scene = CSceneMgr::GetInst()->GetCurScene();
+		scene->Exit();
+		scene->Enter();
+	}
+		break;
 	}
 }
 

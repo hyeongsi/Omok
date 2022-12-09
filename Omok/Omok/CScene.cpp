@@ -16,6 +16,8 @@ CScene::~CScene()
 			if (nullptr != m_arrObj[i][j])
 				delete m_arrObj[i][j];
 		}
+
+		m_arrObj[i].clear();
 	}
 }
 
@@ -28,6 +30,8 @@ void CScene::DeleteObjAll()
 			if (nullptr != m_arrObj[i][j])
 				delete m_arrObj[i][j];
 		}
+
+		m_arrObj[i].clear();
 	}
 }
 

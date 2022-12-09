@@ -27,8 +27,10 @@ public:
 	static CGameMgr* GetInst();
 
 public:
+	bool IsEnd();
 	void SkipTurn();
 	void PlacementStone(int index);
+	void Victory(STONE_INFO _e);
 
 public:
 	void Init(CBoard* pBoard);
