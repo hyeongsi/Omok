@@ -27,14 +27,16 @@ constexpr int OMOK_BOARD_SIZE_Y = 36;
 enum class EVENT_TYPE
 {
 	CREATE_OBJECT,
+	CHANGE_GAME_STATE,
+	SKIP_TURN,
 
 	END,
 };
 
 enum class GAME_STATE
 {
+	BEFORE_PLAY,
 	PLAY,
-	PAUSE,
 	VICTORY,
 	END
 };
@@ -50,6 +52,8 @@ enum class BRUSH_TYPE
 {
 	WOOD,
 	BLACK,
+	WHITE,
+	RED,
 	HOLLOW,
 
 	END,
@@ -57,8 +61,9 @@ enum class BRUSH_TYPE
 
 enum class PEN_TYPE
 {
-	GREEN,
 	RED,
+	GREEN,
+	BLUE,
 
 	END,
 };

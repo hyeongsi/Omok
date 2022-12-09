@@ -8,6 +8,8 @@
 #include "CGameMgr.h"
 #include "CEventMgr.h"
 
+#include "CStone.h"
+
 CBoard::CBoard()
 {
 	float xScale = float(OMOK_BOARD_SIZE_X * OMOK_BOARD_COUNT);
@@ -53,8 +55,7 @@ void CBoard::Update()
 	if (nullptr == hwnd)
 		return;
 
-
-	
+	LandStone();
 }
 
 void CBoard::Render(HDC _dc)
@@ -93,6 +94,65 @@ Vec2 CBoard::GetRB()
 	Vec2 vRb = Vec2(pos.x + scale.x / 2.f - marginX, pos.y + scale.y / 2.f - marginY);
 
 	return vRb;
+}
+
+void CBoard::LandStone()
+{
+	Vec2 vPos;
+	Vec2 vScale;
+
+	for (size_t i = 0; i < m_vBoard.size(); i++)
+	{
+		vPos = m_vBoard[i].vPos;
+		vScale = m_vBoard[i].vScale;
+
+		Vec2 mousePos = CKeyMgr::GetInst()->GetMousePos();
+		if (STONE_INFO::NONE == m_vBoard[i].eStoneInfo
+			&& CKeyMgr::GetInst()->IsCollision(vPos, vScale, mousePos, Vec2(1, 1)))
+		{
+			if (KEY_STATE::AWAY == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
+			{
+				CreateStone(vPos, vScale, (int)i);
+				break;
+			}
+		}
+	}
+}
+
+void CBoard::CreateStone(const Vec2& pos, const Vec2& scale, int index)
+{
+	// play 상태로 변경
+	if (GAME_STATE::PLAY != CGameMgr::GetInst()->GetGameState())
+	{
+		tEvent tevent;
+		tevent.eEven = EVENT_TYPE::CHANGE_GAME_STATE;
+		tevent.lParam = (DWORD_PTR)GAME_STATE::PLAY;
+		CEventMgr::GetInst()->AddEvent(tevent);
+	}
+
+	bool isBlack = CGameMgr::GetInst()->GetIsBlackTurn();
+
+	CStone* pStone = new CStone();
+	pStone->SetPos(pos);
+	pStone->SetScale(scale);
+	pStone->SetBlack(isBlack);
+
+	// 돌 생성
+	tEvent tevent2;
+	tevent2.eEven = EVENT_TYPE::CREATE_OBJECT;
+	tevent2.lParam = (DWORD_PTR)pStone;
+	tevent2.wParam = (DWORD_PTR)GROUP_TYPE::STONE;
+	CEventMgr::GetInst()->AddEvent(tevent2);
+
+	// 순서 넘기기
+	tEvent tevent3;
+	tevent3.eEven = EVENT_TYPE::SKIP_TURN;
+	CEventMgr::GetInst()->AddEvent(tevent3);
+
+	if(isBlack)
+		m_vBoard[index].eStoneInfo = STONE_INFO::BLACK;
+	else
+		m_vBoard[index].eStoneInfo = STONE_INFO::WHITE;
 }
 
 void CBoard::DrawBoardRect(HDC _dc)
@@ -175,12 +235,24 @@ void CBoard::DrawBoardInfo(HDC _dc)
 			if (STONE_INFO::NONE != m_vBoard[i].eStoneInfo
 				|| CKeyMgr::GetInst()->IsCollision(vPos, vScale, mousePos, Vec2(1,1)))
 			{
-				CSelectGDI rednPen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::RED));
-				Rectangle(_dc
-					, (int)(vPos.x - vScale.x / 2.f)
-					, (int)(vPos.y - vScale.y / 2.f)
-					, (int)(vPos.x + vScale.x / 2.f)
-					, (int)(vPos.y + vScale.y / 2.f));
+				if (KEY_STATE::HOLD == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
+				{
+					CSelectGDI bluePen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::BLUE));
+					Rectangle(_dc
+						, (int)(vPos.x - vScale.x / 2.f)
+						, (int)(vPos.y - vScale.y / 2.f)
+						, (int)(vPos.x + vScale.x / 2.f)
+						, (int)(vPos.y + vScale.y / 2.f));
+				}
+				else
+				{
+					CSelectGDI rednPen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::RED));
+					Rectangle(_dc
+						, (int)(vPos.x - vScale.x / 2.f)
+						, (int)(vPos.y - vScale.y / 2.f)
+						, (int)(vPos.x + vScale.x / 2.f)
+						, (int)(vPos.y + vScale.y / 2.f));
+				}		
 			}
 			else
 			{

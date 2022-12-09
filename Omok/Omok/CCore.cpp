@@ -4,6 +4,7 @@
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
 #include "CGameMgr.h"
+#include "CEventMgr.h"
 
 CCore::CCore()
 	: m_hInst()
@@ -14,6 +15,8 @@ CCore::CCore()
 	, m_hBitmap()
 	, m_bitmapInfo()
 	, m_bMenu(true)
+	, m_arrBrush{}
+	, m_arrPen{}
 {}
 
 CCore::~CCore()
@@ -68,6 +71,7 @@ void CCore::Update()
 	CKeyMgr::GetInst()->Update();
 	CSceneMgr::GetInst()->Update();
 	CGameMgr::GetInst()->Update();
+	CEventMgr::GetInst()->Update();
 }
 
 void CCore::Render()
@@ -108,8 +112,11 @@ void CCore::CreateBrushPen()
 {
 	m_arrBrush[(UINT)BRUSH_TYPE::WOOD] = CreateSolidBrush(COLORREF(RGB(244, 176, 77)));
 	m_arrBrush[(UINT)BRUSH_TYPE::BLACK] = CreateSolidBrush(COLORREF(RGB(0, 0, 0)));
+	m_arrBrush[(UINT)BRUSH_TYPE::WHITE] = CreateSolidBrush(COLORREF(RGB(255, 255, 255)));
+	m_arrBrush[(UINT)BRUSH_TYPE::RED] = CreateSolidBrush(COLORREF(RGB(255, 0, 0)));
 	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
 
-	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, COLORREF(RGB(0, 255, 0)));
 	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, COLORREF(RGB(255, 0, 0)));
+	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, COLORREF(RGB(0, 255, 0)));
+	m_arrPen[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, COLORREF(RGB(0, 0, 255)));
 }

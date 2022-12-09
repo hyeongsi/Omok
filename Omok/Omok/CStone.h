@@ -7,10 +7,11 @@ class CStone :
     public CObject
 {
 private:
+    bool isBlack;
 
-
-private:
-
+public:
+    void SetBlack(bool _b) { isBlack = _b; }
+    bool IsBlack() { return isBlack; }
 
 public:
     virtual void Update();

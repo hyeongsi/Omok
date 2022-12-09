@@ -20,6 +20,9 @@ public:
     Vec2 GetRB();
 
 private:
+    void LandStone();
+    void CreateStone(const Vec2& pos, const Vec2& scale, int index);
+
     void DrawBoardRect(HDC _dc);
     void DrawBoardLine(HDC _dc);
     void DrawBoardDot(HDC _dc);

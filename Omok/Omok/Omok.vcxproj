@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCore.h" />
+    <ClInclude Include="CDotUI.h" />
     <ClInclude Include="CEventMgr.h" />
     <ClInclude Include="CGameMgr.h" />
     <ClInclude Include="CKeyMgr.h" />
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCore.cpp" />
+    <ClCompile Include="CDotUI.cpp" />
     <ClCompile Include="CEventMgr.cpp" />
     <ClCompile Include="CGameMgr.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />

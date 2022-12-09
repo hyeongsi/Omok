@@ -5,6 +5,10 @@
 
 #include "CScene.h"
 #include "CSceneMgr.h"
+#include "CGameMgr.h"
+
+#include "CStone.h"
+#include "CBoard.h"
 
 CEventMgr::CEventMgr()
 {
@@ -37,6 +41,16 @@ void CEventMgr::Excute(const tEvent& _eve)
 
 		CSceneMgr::GetInst()->GetCurScene()->AddObject(pNewObj, eType);
 	}
+		break;
+	case EVENT_TYPE::CHANGE_GAME_STATE:
+	{
+		// lParam : GAME_STATE
+		GAME_STATE eState = (GAME_STATE)_eve.lParam;
+		CGameMgr::GetInst()->SetGameState(eState);
+	}
+		break;
+	case EVENT_TYPE::SKIP_TURN:
+		CGameMgr::GetInst()->SkipTurn();
 		break;
 	}
 }

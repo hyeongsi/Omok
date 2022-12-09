@@ -4,8 +4,8 @@
 #include "CKeyMgr.h"
 
 CGameMgr::CGameMgr()
-	: m_bBlackTurn(true)
-	, m_eGameState(GAME_STATE::END)
+	: m_eGameState(GAME_STATE::BEFORE_PLAY)
+	, m_bBlackTurn(true)
 	, m_bDebugMode(false)
 {
 }
