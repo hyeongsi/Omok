@@ -7,7 +7,6 @@
 CDotUI::CDotUI()
 	: m_bEnable(false)
 {
-	SetScale(Vec2(3.f, 3.f));
 }
 
 CDotUI::~CDotUI()
@@ -32,7 +31,7 @@ void CDotUI::Render(HDC _dc)
 		Ellipse(_dc
 			, int(pos.x - scale.x / 2.f)
 			, int(pos.y - scale.y / 2.f)
-			, int(pos.y + scale.y / 2.f)
-			, int(pos.x + scale.x / 2.f));
+			, int(pos.x + scale.x / 2.f)
+			, int(pos.y + scale.y / 2.f));
 	}
 }

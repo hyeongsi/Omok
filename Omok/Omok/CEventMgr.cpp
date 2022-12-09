@@ -9,6 +9,7 @@
 
 #include "CStone.h"
 #include "CBoard.h"
+#include "CDotUI.h"
 
 CEventMgr::CEventMgr()
 {
@@ -49,6 +50,17 @@ void CEventMgr::Excute(const tEvent& _eve)
 		CGameMgr::GetInst()->SetGameState(eState);
 	}
 		break;
+	case EVENT_TYPE::ENABLE_DOT_UI:
+	{
+		// lParam : pos x
+		// wParam : pos y
+		float xPos = (float)_eve.lParam;
+		float yPos = (float)_eve.wParam;
+		CDotUI* pDotUI = CGameMgr::GetInst()->GetDotUI();
+		pDotUI->SetPos(Vec2(xPos, yPos));
+		pDotUI->SetEnable(true);
+	}
+	break;
 	case EVENT_TYPE::SKIP_TURN:
 		CGameMgr::GetInst()->SkipTurn();
 		break;

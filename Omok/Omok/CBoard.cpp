@@ -9,6 +9,7 @@
 #include "CEventMgr.h"
 
 #include "CStone.h"
+#include "CDotUI.h"
 
 CBoard::CBoard()
 {
@@ -144,10 +145,17 @@ void CBoard::CreateStone(const Vec2& pos, const Vec2& scale, int index)
 	tevent2.wParam = (DWORD_PTR)GROUP_TYPE::STONE;
 	CEventMgr::GetInst()->AddEvent(tevent2);
 
-	// 순서 넘기기
+	// dot ui 활성화
 	tEvent tevent3;
-	tevent3.eEven = EVENT_TYPE::SKIP_TURN;
+	tevent3.eEven = EVENT_TYPE::ENABLE_DOT_UI;
+	tevent3.lParam = (DWORD_PTR)pos.x;
+	tevent3.wParam = (DWORD_PTR)pos.y;
 	CEventMgr::GetInst()->AddEvent(tevent3);
+
+	// 순서 넘기기
+	tEvent tevent4;
+	tevent4.eEven = EVENT_TYPE::SKIP_TURN;
+	CEventMgr::GetInst()->AddEvent(tevent4);
 
 	if(isBlack)
 		m_vBoard[index].eStoneInfo = STONE_INFO::BLACK;
@@ -232,8 +240,7 @@ void CBoard::DrawBoardInfo(HDC _dc)
 			CSelectGDI hollowBrush(_dc, CCore::GetInst()->GetBrush(BRUSH_TYPE::HOLLOW));
 
 			Vec2 mousePos = CKeyMgr::GetInst()->GetMousePos();
-			if (STONE_INFO::NONE != m_vBoard[i].eStoneInfo
-				|| CKeyMgr::GetInst()->IsCollision(vPos, vScale, mousePos, Vec2(1,1)))
+			if (CKeyMgr::GetInst()->IsCollision(vPos, vScale, mousePos, Vec2(1,1)))
 			{
 				if (KEY_STATE::HOLD == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
 				{
@@ -246,13 +253,13 @@ void CBoard::DrawBoardInfo(HDC _dc)
 				}
 				else
 				{
-					CSelectGDI rednPen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::RED));
+					CSelectGDI bluePen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::RED));
 					Rectangle(_dc
 						, (int)(vPos.x - vScale.x / 2.f)
 						, (int)(vPos.y - vScale.y / 2.f)
 						, (int)(vPos.x + vScale.x / 2.f)
 						, (int)(vPos.y + vScale.y / 2.f));
-				}		
+				}
 			}
 			else
 			{
@@ -262,6 +269,7 @@ void CBoard::DrawBoardInfo(HDC _dc)
 					, (int)(vPos.y - vScale.y / 2.f)
 					, (int)(vPos.x + vScale.x / 2.f)
 					, (int)(vPos.y + vScale.y / 2.f));
+				
 			}
 		}
 	}
