@@ -16,6 +16,9 @@ public:
     UINT GetSequence() { return m_uiSequence; }
 
 public:
+    void DrawPlaceText(HDC _dc, STONE_INFO _eType);
+
+public:
     virtual void Update();
     virtual void Render(HDC _dc);
 

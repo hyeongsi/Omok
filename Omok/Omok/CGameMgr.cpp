@@ -139,8 +139,6 @@ void CGameMgr::Render(HDC _dc)
 {
 	if (GAME_STATE::NONE == m_eGameState)
 		return;
-	if (!GetFocus())
-		return;
 
 	assert(m_pBoard);
 	assert(m_pDotUI);

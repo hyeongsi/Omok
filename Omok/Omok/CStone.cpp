@@ -39,15 +39,7 @@ void CStone::Render(HDC _dc)
 
 		if (CGameMgr::GetInst()->IsDebugMode() && 0 != m_uiSequence)
 		{
-			CSelectGDI blackBk(_dc, RGB(0,0,0), COLORREF_TYPE::BACKGROUND);
-			CSelectGDI whiteText(_dc, RGB(255, 255, 255), COLORREF_TYPE::TEXT);
-
-			wstring sequenceStr = to_wstring(m_uiSequence);
-			RECT rt = { (LONG)(pos.x - scale.x / 2.f),
-						(LONG)(pos.y - scale.y / 2.f),
-						(LONG)(pos.x + scale.x / 2.f),
-						(LONG)(pos.y + scale.y / 2.f) };
-			DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+			DrawPlaceText(_dc, m_eStoneInfo);
 		}
 	}
 	else if(STONE_INFO::WHITE == m_eStoneInfo)
@@ -62,17 +54,37 @@ void CStone::Render(HDC _dc)
 		
 		if (CGameMgr::GetInst()->IsDebugMode() && 0 != m_uiSequence)
 		{
-			CSelectGDI whiteBk(_dc, RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
-			CSelectGDI blackText(_dc, RGB(0, 0, 0), COLORREF_TYPE::TEXT);
-
-			wstring sequenceStr = to_wstring(m_uiSequence);
-			RECT rt = { (LONG)(pos.x - scale.x / 2.f),
-						(LONG)(pos.y - scale.y / 2.f),
-						(LONG)(pos.x + scale.x / 2.f),
-						(LONG)(pos.y + scale.y / 2.f) };
-			DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+			DrawPlaceText(_dc, m_eStoneInfo);
 		}
 	}
 	
 }
 
+
+void CStone::DrawPlaceText(HDC _dc, STONE_INFO _eType)
+{
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
+
+	wstring sequenceStr = to_wstring(m_uiSequence);
+
+	RECT rt = { (LONG)(pos.x - scale.x / 2.f),
+					(LONG)(pos.y - scale.y / 2.f),
+					(LONG)(pos.x + scale.x / 2.f),
+					(LONG)(pos.y + scale.y / 2.f) };
+
+	if (STONE_INFO::BLACK == _eType)
+	{
+		CSelectGDI blackBk(_dc, RGB(0, 0, 0), COLORREF_TYPE::BACKGROUND);
+		CSelectGDI whiteText(_dc, RGB(255, 255, 255), COLORREF_TYPE::TEXT);
+
+		DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+	}
+	else
+	{
+		CSelectGDI whiteBk(_dc, RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
+		CSelectGDI blackText(_dc, RGB(0, 0, 0), COLORREF_TYPE::TEXT);
+		
+		DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+	}
+}
