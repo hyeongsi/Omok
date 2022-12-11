@@ -38,19 +38,13 @@ CBoard::~CBoard()
 
 void CBoard::Update()
 {
-	HWND hwnd = GetFocus();
-	if (nullptr == hwnd)
-		return;
-
-	// 착점
-	Placement();
 }
 
 void CBoard::Render(HDC _dc)
 {
-	DrawBoardBody(_dc); // 바둑판 그리기
-	DrawBoardLine(_dc);	// 바둑판 내부 선 그리기
-	DrawBoardDot(_dc);	// 바둑판 내부 점 그리기
+	RenderBoardBody(_dc); // 바둑판 그리기
+	RenderBoardLine(_dc);	// 바둑판 내부 선 그리기
+	RenderBoardDot(_dc);	// 바둑판 내부 점 그리기
 }
 
 Vec2 CBoard::GetLT()
@@ -81,42 +75,7 @@ Vec2 CBoard::GetRB()
 	return vRb;
 }
 
-void CBoard::Placement()
-{
-	Vec2 vPos;
-	Vec2 vScale;
-
-	for (size_t i = 0; i < m_vBoardInfo.size(); i++)
-	{
-		vPos = m_vBoardInfo[i]->GetPos();
-		vScale = m_vBoardInfo[i]->GetScale();
-
-		Vec2 mousePos = CKeyMgr::GetInst()->GetMousePos();
-		if (STONE_INFO::NONE == m_vBoardInfo[i]->GetStoneInfo()
-			&& CKeyMgr::GetInst()->IsCollision(vPos, vScale, mousePos, Vec2(1, 1)))
-		{
-			if (KEY_STATE::AWAY == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
-			{
-				PlaceStone((int)i);
-				break;
-			}
-		}
-	}
-}
-
-void CBoard::PlaceStone(int index)
-{
-	STONE_INFO turn = CGameMgr::GetInst()->GetTurn();
-
-	m_vBoardInfo[index]->SetInfo(turn);
-
-	tEvent stoneInfoEvent;
-	stoneInfoEvent.eEven = EVENT_TYPE::PLACEMENT_STONE;
-	stoneInfoEvent.lParam = (DWORD_PTR)index;
-	CEventMgr::GetInst()->AddEvent(stoneInfoEvent);
-}
-
-void CBoard::DrawBoardBody(HDC _dc)
+void CBoard::RenderBoardBody(HDC _dc)
 {
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
@@ -125,7 +84,7 @@ void CBoard::DrawBoardBody(HDC _dc)
 	DrawRect(_dc, pos, scale);
 }
 
-void CBoard::DrawBoardLine(HDC _dc)
+void CBoard::RenderBoardLine(HDC _dc)
 {
 	Vec2 vLt = GetLT();
 	Vec2 vRb = GetRB();
@@ -147,7 +106,7 @@ void CBoard::DrawBoardLine(HDC _dc)
 	}
 }
 
-void CBoard::DrawBoardDot(HDC _dc)
+void CBoard::RenderBoardDot(HDC _dc)
 {
 	const int radius = 3;
 	Vec2 vLt = GetLT();
@@ -182,42 +141,4 @@ void CBoard::DrawRect(HDC _dc, Vec2 pos, Vec2 scale)
 		, (int)(pos.y - scale.y / 2.f)
 		, (int)(pos.x + scale.x / 2.f)
 		, (int)(pos.y + scale.y / 2.f));
-}
-
-void CBoard::DrawDebugModeBoard(HDC _dc)
-{
-	Vec2 vPos;
-	Vec2 vScale;
-
-	for (size_t i = 0; i < m_vBoardInfo.size(); i++)
-	{
-		vPos = m_vBoardInfo[i]->GetPos();
-		vScale = m_vBoardInfo[i]->GetScale();
-
-		{
-			CSelectGDI hollowBrush(_dc, CCore::GetInst()->GetBrush(BRUSH_TYPE::HOLLOW));
-
-			// 마우스와 충돌 확인
-			Vec2 mousePos = CKeyMgr::GetInst()->GetMousePos();
-			if (CKeyMgr::GetInst()->IsCollision(vPos, vScale, mousePos, Vec2(1, 1)))
-			{
-				if (KEY_STATE::HOLD == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
-				{
-					CSelectGDI bluePen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::BLUE));
-					DrawRect(_dc, vPos, vScale);
-				}
-				else
-				{
-					CSelectGDI bluePen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::RED));
-					DrawRect(_dc, vPos, vScale);
-				}
-			}
-			else
-			{
-				CSelectGDI greenPen(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::GREEN));
-				DrawRect(_dc, vPos, vScale);
-
-			}
-		}
-	}
 }

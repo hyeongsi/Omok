@@ -4,6 +4,8 @@
 #include "CCore.h"
 #include "CSelectGDI.h"
 #include "CGameMgr.h"
+#include "CKeyMgr.h"
+#include "CEventMgr.h"
 
 CStone::CStone()
 	: m_eStoneInfo(STONE_INFO::NONE)
@@ -17,9 +19,47 @@ CStone::~CStone()
 
 void CStone::Update()
 {
+	if (STONE_INFO::NONE == m_eStoneInfo
+		&& IsCollision())
+	{
+		if (KEY_STATE::AWAY == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
+		{
+			STONE_INFO turn = CGameMgr::GetInst()->GetTurn();
+
+			tEvent stoneInfoEvent;
+			stoneInfoEvent.eEven = EVENT_TYPE::PLACEMENT_STONE;
+			stoneInfoEvent.lParam = (DWORD_PTR)this;
+			CEventMgr::GetInst()->AddEvent(stoneInfoEvent);
+		}
+	}
 }
 
 void CStone::Render(HDC _dc)
+{
+	RenderBody(_dc);
+	RenderPlaceText(_dc, m_eStoneInfo);
+
+	if (STONE_INFO::NONE == m_eStoneInfo
+		&& IsCollision())
+	{
+		CSelectGDI gdi(_dc);
+		gdi.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::HOLLOW));
+		gdi.SetPen(CCore::GetInst()->GetPEN(PEN_TYPE::GREEN));
+
+		RenderRect(_dc);
+	}
+}
+
+bool CStone::IsCollision()
+{
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
+	Vec2 mousePos = CKeyMgr::GetInst()->GetMousePos();
+
+	return CKeyMgr::GetInst()->IsCollision(pos, scale, mousePos, Vec2(1, 1));
+}
+
+void CStone::RenderBody(HDC _dc)
 {
 	if (STONE_INFO::NONE == m_eStoneInfo)
 		return;
@@ -27,42 +67,27 @@ void CStone::Render(HDC _dc)
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
 
+	CSelectGDI brush(_dc);
+
 	if (STONE_INFO::BLACK == m_eStoneInfo)
 	{
-		CSelectGDI blackBrush(_dc, CCore::GetInst()->GetBrush(BRUSH_TYPE::BLACK));
-
-		Ellipse(_dc
-			, (int)(pos.x - scale.x / 2.f)
-			, (int)(pos.y - scale.y / 2.f)
-			, (int)(pos.x + scale.x / 2.f)
-			, (int)(pos.y + scale.y / 2.f));
-
-		if (CGameMgr::GetInst()->IsDebugMode() && 0 != m_uiSequence)
-		{
-			DrawPlaceText(_dc, m_eStoneInfo);
-		}
+		brush.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::BLACK));
 	}
-	else if(STONE_INFO::WHITE == m_eStoneInfo)
+	else if (STONE_INFO::WHITE == m_eStoneInfo)
 	{
-		CSelectGDI whiteBrush(_dc, CCore::GetInst()->GetBrush(BRUSH_TYPE::WHITE));
-
-		Ellipse(_dc
-			, (int)(pos.x - scale.x / 2.f)
-			, (int)(pos.y - scale.y / 2.f)
-			, (int)(pos.x + scale.x / 2.f)
-			, (int)(pos.y + scale.y / 2.f));
-		
-		if (CGameMgr::GetInst()->IsDebugMode() && 0 != m_uiSequence)
-		{
-			DrawPlaceText(_dc, m_eStoneInfo);
-		}
+		brush.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::WHITE));
 	}
-	
+
+	RenderEllipse(_dc);
 }
 
-
-void CStone::DrawPlaceText(HDC _dc, STONE_INFO _eType)
+void CStone::RenderPlaceText(HDC _dc, STONE_INFO _eType)
 {
+	if (!CGameMgr::GetInst()->IsDebugMode())
+		return;
+	if (0 == m_uiSequence)
+		return;
+
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
 
@@ -73,18 +98,43 @@ void CStone::DrawPlaceText(HDC _dc, STONE_INFO _eType)
 					(LONG)(pos.x + scale.x / 2.f),
 					(LONG)(pos.y + scale.y / 2.f) };
 
+	CSelectGDI background(_dc);
+	CSelectGDI text(_dc);
+
 	if (STONE_INFO::BLACK == _eType)
 	{
-		CSelectGDI blackBk(_dc, RGB(0, 0, 0), COLORREF_TYPE::BACKGROUND);
-		CSelectGDI whiteText(_dc, RGB(255, 255, 255), COLORREF_TYPE::TEXT);
-
-		DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+		background.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::BACKGROUND);
+		text.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::TEXT);
 	}
 	else
 	{
-		CSelectGDI whiteBk(_dc, RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
-		CSelectGDI blackText(_dc, RGB(0, 0, 0), COLORREF_TYPE::TEXT);
-		
-		DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+		background.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
+		text.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
 	}
+
+	DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+}
+
+void CStone::RenderEllipse(HDC _dc)
+{
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
+
+	Ellipse(_dc
+		, (int)(pos.x - scale.x / 2.f)
+		, (int)(pos.y - scale.y / 2.f)
+		, (int)(pos.x + scale.x / 2.f)
+		, (int)(pos.y + scale.y / 2.f));
+}
+
+void CStone::RenderRect(HDC _dc)
+{
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
+
+	Rectangle(_dc
+		, (int)(pos.x - scale.x / 2.f)
+		, (int)(pos.y - scale.y / 2.f)
+		, (int)(pos.x + scale.x / 2.f)
+		, (int)(pos.y + scale.y / 2.f));
 }

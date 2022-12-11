@@ -38,12 +38,11 @@ void CInGameScene::Enter()
 			CStone* pStone = new CStone();
 			pStone->SetPos(vpos);
 			pStone->SetScale(Vec2(OMOK_BOARD_SIZE_X, OMOK_BOARD_SIZE_Y));
-			pBoard->AddStone(pStone);
 			AddObject(pStone, GROUP_TYPE::STONE);
 		}
 	}
 
-	CGameMgr::GetInst()->Init(pBoard);
+	CGameMgr::GetInst()->Init();
 }
 
 void CInGameScene::Exit()

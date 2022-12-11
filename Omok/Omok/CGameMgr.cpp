@@ -6,9 +6,9 @@
 
 #include "CKeyMgr.h"
 #include "CEventMgr.h"
+#include "CSelectGDI.h"
 
 #include "CStone.h"
-#include "CBoard.h"
 #include "CDotUI.h"
 
 #include "CCore.h"
@@ -18,7 +18,6 @@ CGameMgr::CGameMgr()
 	: m_eGameState(GAME_STATE::NONE)
 	, m_eTurn(STONE_INFO::BLACK)
 	, m_bDebugMode(false)
-	, m_pBoard(nullptr)
 	, m_pDotUI(nullptr)
 	, m_uiId(0)
 {
@@ -52,16 +51,14 @@ void CGameMgr::SkipTurn()
 		m_eTurn = STONE_INFO::BLACK;
 }
 
-void CGameMgr::PlacementStone(int index)
+void CGameMgr::PlacementStone(CStone* stone)
 {
-	CStone* pStone = m_pBoard->m_vBoardInfo[index];
-	// 돌 색상 변경
-	pStone->SetInfo(m_eTurn);
-	pStone->SetSequence(++m_uiId);
+	stone->SetInfo(m_eTurn);
+	stone->SetSequence(++m_uiId);
 
 	// ui 위치 활성화, 위치 조정
 	m_pDotUI->SetEnable(true);
-	m_pDotUI->SetPos(pStone->GetPos());
+	m_pDotUI->SetPos(stone->GetPos());
 
 	if (!IsEnd())
 		SkipTurn();
@@ -93,13 +90,12 @@ void CGameMgr::Victory(STONE_INFO _e)
 	}
 }
 
-void CGameMgr::Init(CBoard* pBoard)
+void CGameMgr::Init()
 {
 	// 매개변수 초기화
 	m_eGameState = GAME_STATE::PLAY;
 	m_eTurn = STONE_INFO::BLACK;
 	m_bDebugMode = false;
-	m_pBoard = pBoard;
 
 	CDotUI* pDotUI = new CDotUI();
 	pDotUI->SetScale(Vec2(5.f, 5.f));
@@ -137,12 +133,28 @@ void CGameMgr::Update()
 
 void CGameMgr::Render(HDC _dc)
 {
-	if (GAME_STATE::NONE == m_eGameState)
-		return;
+	if (GAME_STATE::PLAY == m_eGameState)
+	{
+		const int margin = 15;
+		const int size = 10;
 
-	assert(m_pBoard);
-	assert(m_pDotUI);
+		Vec2 mousePos = CKeyMgr::GetInst()->GetMousePos();
+		mousePos += margin;
 
-	if (m_bDebugMode)
-		m_pBoard->DrawDebugModeBoard(_dc);
+		CSelectGDI gdi(_dc);
+		if (STONE_INFO::BLACK == m_eTurn)
+		{
+			gdi.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::BLACK));
+		}
+		else if (STONE_INFO::WHITE == m_eTurn)
+		{
+			gdi.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::WHITE));
+		}
+
+		Ellipse(_dc
+			, (int)(mousePos.x - size)
+			, (int)(mousePos.y - size)
+			, (int)(mousePos.x + size)
+			, (int)(mousePos.y + size));
+	}
 }

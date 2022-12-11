@@ -45,9 +45,9 @@ void CEventMgr::Excute(const tEvent& _eve)
 		break;
 	case EVENT_TYPE::PLACEMENT_STONE:
 	{
-		// lParam : m_vBoardInfo index
-		int index = (int)_eve.lParam;
-		CGameMgr::GetInst()->PlacementStone(index);
+		// lParam : CStone Address
+		CStone* pStone = (CStone*)_eve.lParam;
+		CGameMgr::GetInst()->PlacementStone(pStone);
 	}
 		break;
 	case EVENT_TYPE::SKIP_TURN:

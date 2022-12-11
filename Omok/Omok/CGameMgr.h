@@ -1,19 +1,18 @@
 ﻿#pragma once
 
-class CBoard;
 class CDotUI;
+class CStone;
 
 class CGameMgr
 {
 private:
-	GAME_STATE		m_eGameState;
-	STONE_INFO		m_eTurn;
-	bool			m_bDebugMode;
+	GAME_STATE			m_eGameState;
+	STONE_INFO			m_eTurn;
+	bool				m_bDebugMode;
 
-	CBoard*			m_pBoard;
-	CDotUI*			m_pDotUI;
+	CDotUI*				m_pDotUI;
 
-	UINT			m_uiId;
+	UINT				m_uiId;
 
 public:
 	void SetGameState(GAME_STATE _e) { m_eGameState = _e; }
@@ -29,11 +28,11 @@ public:
 public:
 	bool IsEnd();
 	void SkipTurn();
-	void PlacementStone(int index);
+	void PlacementStone(CStone* stone);
 	void Victory(STONE_INFO _e);
 
 public:
-	void Init(CBoard* pBoard);
+	void Init();
 	void Update();
 	void Render(HDC _dc);
 

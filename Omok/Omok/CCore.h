@@ -20,6 +20,7 @@ private:
 public:
 	static CCore* GetInst();
 	HWND GetMainHwnd() { return m_hWnd; }
+	HDC GetMainDC() { return m_hDC; }
 	HDC GetBDC() { return m_hBDC; }
 
 	POINT GetResolution() { return m_ptResolution; }

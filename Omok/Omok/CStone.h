@@ -14,9 +14,14 @@ public:
 
     void SetSequence(UINT i) { m_uiSequence = i; }
     UINT GetSequence() { return m_uiSequence; }
+    
+    bool IsCollision();
 
 public:
-    void DrawPlaceText(HDC _dc, STONE_INFO _eType);
+    void RenderBody(HDC _dc);
+    void RenderPlaceText(HDC _dc, STONE_INFO _eType);
+    void RenderEllipse(HDC _dc);
+    void RenderRect(HDC _dc);
 
 public:
     virtual void Update();

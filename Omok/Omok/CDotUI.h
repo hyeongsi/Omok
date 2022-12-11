@@ -1,5 +1,6 @@
 #pragma once
 #include "CObject.h"
+
 class CDotUI :
     public CObject
 {
