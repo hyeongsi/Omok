@@ -62,9 +62,11 @@ void CStone::RenderBody(HDC _dc)
 	Vec2 scale = GetScale();
 
 	CSelectGDI brush(_dc);
+	CSelectGDI pen(_dc);
 
 	if (STONE_INFO::BLACK == m_eStoneInfo)
 	{
+		pen.SetPen(CCore::GetInst()->GetPEN(PEN_TYPE::WHITE));
 		brush.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::BLACK));
 	}
 	else if (STONE_INFO::WHITE == m_eStoneInfo)

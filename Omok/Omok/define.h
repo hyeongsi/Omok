@@ -21,8 +21,8 @@ enum class SCENE_TYPE
 };
 
 constexpr int OMOK_BALL_SIZE = 22;
-constexpr int OMOK_BOARD_COUNT = 18;
-constexpr int OMOK_BOARD_STONE_COUNT = 19;
+constexpr int OMOK_BOARD_COUNT = 14;
+constexpr int OMOK_BOARD_STONE_COUNT = 15;
 
 constexpr int OMOK_BOARD_SIZE_X = 38;
 constexpr int OMOK_BOARD_SIZE_Y = 36;
@@ -68,6 +68,7 @@ enum class PEN_TYPE
 	RED,
 	GREEN,
 	BLUE,
+	WHITE,
 
 	END,
 };

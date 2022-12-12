@@ -48,7 +48,7 @@ void CCore::Init(HINSTANCE _hInst, HWND _hWnd)
 	m_hWnd = _hWnd;
 
 	// 클라이언트 사이즈 설정
-	m_ptResolution = POINT{ 1280, 768 };
+	m_ptResolution = POINT{ 1024, 728 };
 	ChangeWindowSize(m_ptResolution, m_bMenu);
 	// 백버퍼 생성
 	CreateHDC();
@@ -121,4 +121,6 @@ void CCore::CreateBrushPen()
 	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, COLORREF(RGB(255, 0, 0)));
 	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, COLORREF(RGB(0, 255, 0)));
 	m_arrPen[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, COLORREF(RGB(0, 0, 255)));
+	m_arrPen[(UINT)PEN_TYPE::WHITE] = CreatePen(PS_SOLID, 1, COLORREF(RGB(255, 255, 255)));
+	
 }

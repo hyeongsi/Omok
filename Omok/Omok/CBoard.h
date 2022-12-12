@@ -16,6 +16,7 @@ private:
     void RenderBoardBody(HDC _dc);
     void RenderBoardLine(HDC _dc);
     void RenderBoardDot(HDC _dc);
+    void RenderBoardText(HDC _dc);
 
     void DrawRect(HDC _dc, Vec2 pos, Vec2 scale);
 
