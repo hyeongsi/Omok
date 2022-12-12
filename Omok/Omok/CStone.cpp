@@ -42,16 +42,6 @@ void CStone::Render(HDC _dc)
 {
 	RenderBody(_dc);
 	RenderPlaceText(_dc, m_eStoneInfo);
-
-	if (STONE_INFO::NONE == m_eStoneInfo
-		&& IsCollision())
-	{
-		CSelectGDI gdi(_dc);
-		gdi.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::HOLLOW));
-		gdi.SetPen(CCore::GetInst()->GetPEN(PEN_TYPE::GREEN));
-
-		RenderRect(_dc);
-	}
 }
 
 bool CStone::IsCollision()
@@ -139,6 +129,23 @@ void CStone::RenderEllipse(HDC _dc)
 		, (int)(pos.y + scale.y / 2.f));
 }
 
+bool CStone::RenderGuideLine(HDC _dc)
+{
+	if (STONE_INFO::NONE == m_eStoneInfo
+		&& IsCollision())
+	{
+		CSelectGDI gdi(_dc);
+		gdi.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::HOLLOW));
+		gdi.SetPen(CCore::GetInst()->GetPEN(PEN_TYPE::GREEN));
+
+		RenderRect(_dc);
+
+		return true;
+	}
+
+	return false;
+}
+
 void CStone::RenderRect(HDC _dc)
 {
 	Vec2 pos = GetPos();
@@ -150,3 +157,4 @@ void CStone::RenderRect(HDC _dc)
 		, (int)(pos.x + scale.x / 2.f)
 		, (int)(pos.y + scale.y / 2.f));
 }
+

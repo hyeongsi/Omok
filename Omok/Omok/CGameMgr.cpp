@@ -262,6 +262,15 @@ void CGameMgr::FinalUpdate()
 
 void CGameMgr::Render(HDC _dc)
 {
+	for (int i = 0; i < m_vStone.size(); i++)
+	{
+		// 돌이 놓일 위치 렌더링
+		if (m_vStone[i]->RenderGuideLine(_dc))
+		{
+			break;
+		}
+	}
+
 	if (GAME_STATE::PLAY == m_eGameState)
 	{
 		const int margin = 15;

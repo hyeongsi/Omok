@@ -26,6 +26,7 @@ public:
     void RenderBody(HDC _dc);
     void RenderPlaceText(HDC _dc, STONE_INFO _eType);
     void RenderEllipse(HDC _dc);
+    bool RenderGuideLine(HDC _dc);
     void RenderRect(HDC _dc);
 
 public:
