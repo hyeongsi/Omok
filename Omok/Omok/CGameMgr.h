@@ -29,9 +29,10 @@ public:
 	static CGameMgr* GetInst();
 
 private:
-	bool VictoryCheckWidth();
-	int CheckSameStoneWidth(int index, STONE_INFO color, bool isRight);
-
+	void CheckSameStoneWidth(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
+	void CheckSameStoneHeight(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
+	void CheckSameStoneRightCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
+	void CheckSameStoneLeftCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
 
 public:
 	bool IsEnd();
@@ -41,7 +42,7 @@ public:
 
 public:
 	void Init();
-	void Update();
+	void FinalUpdate();
 	void Render(HDC _dc);
 
 private:

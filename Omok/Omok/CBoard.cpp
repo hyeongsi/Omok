@@ -118,8 +118,8 @@ void CBoard::RenderBoardDot(HDC _dc)
 		for (int j = 0; j <= OMOK_BOARD_COUNT; j++)
 		{
 			// 3, 9, 15
-			if ((2 == i || 9 == i || 15 == i) &&
-				(2 == j || 9 == j || 15 == j) )
+			if ((3 == i || 9 == i || 15 == i) &&
+				(3 == j || 9 == j || 15 == j) )
 			{
 				int x = j * OMOK_BOARD_SIZE_X;
 				int y = i * OMOK_BOARD_SIZE_Y;

@@ -65,6 +65,7 @@ void CCore::Progress()
 	Update();
 	Render();
 
+	CGameMgr::GetInst()->FinalUpdate();
 	CEventMgr::GetInst()->Update();
 }
 
@@ -72,7 +73,6 @@ void CCore::Update()
 {
 	CKeyMgr::GetInst()->Update();
 	CSceneMgr::GetInst()->Update();
-	CGameMgr::GetInst()->Update();
 }
 
 void CCore::Render()

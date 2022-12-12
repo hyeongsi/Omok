@@ -35,61 +35,129 @@ CGameMgr* CGameMgr::GetInst()
 	return &instance;
 }
 
-bool CGameMgr::VictoryCheckWidth()
+void CGameMgr::CheckSameStoneWidth(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep)
+{
+	int y = curIndex / OMOK_BOARD_STONE_COUNT;
+	int stoneIndex = curIndex + gap;
+
+	// 본인 제외 최대 4번 검사
+	if (deep++ == 4)
+		return;
+
+	// 범위 검사
+	if (0 > stoneIndex || OMOK_BOARD_STONE_COUNT * OMOK_BOARD_STONE_COUNT <= stoneIndex)
+		return;
+
+	// 높이값 검사
+	if (stoneIndex / OMOK_BOARD_STONE_COUNT != y)
+		return;
+
+	// 색상 검사
+	if (color != m_vStone[stoneIndex]->GetStoneInfo())
+		return;
+
+	sameColorCount++;
+	CheckSameStoneWidth(sameColorCount, stoneIndex, color, gap, deep);
+}
+
+void CGameMgr::CheckSameStoneHeight(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep)
+{
+	int stoneIndex = curIndex + (gap* OMOK_BOARD_STONE_COUNT);
+
+	// 본인 제외 최대 4번 검사
+	if (deep++ == 4)
+		return;
+
+	// 범위 검사
+	if (0 > stoneIndex || OMOK_BOARD_STONE_COUNT * OMOK_BOARD_STONE_COUNT <= stoneIndex)
+		return;
+
+	// 색상 검사
+	if (color != m_vStone[stoneIndex]->GetStoneInfo())
+		return;
+
+	sameColorCount++;
+	CheckSameStoneHeight(sameColorCount, stoneIndex, color, gap, deep);
+}
+
+void CGameMgr::CheckSameStoneRightCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep)
+{
+	int y = curIndex / OMOK_BOARD_STONE_COUNT;
+	int stoneIndex = curIndex + gap + (gap * OMOK_BOARD_STONE_COUNT);
+
+	// 본인 제외 최대 4번 검사
+	if (deep++ == 4)
+		return;
+
+	// 범위 검사
+	if (0 > stoneIndex || OMOK_BOARD_STONE_COUNT * OMOK_BOARD_STONE_COUNT <= stoneIndex)
+		return;
+
+	// 높이값 검사
+	if (stoneIndex / OMOK_BOARD_STONE_COUNT != y + gap)
+		return;
+
+	// 색상 검사
+	if (color != m_vStone[stoneIndex]->GetStoneInfo())
+		return;
+
+	sameColorCount++;
+	CheckSameStoneRightCross(sameColorCount, stoneIndex, color, gap, deep);
+}
+
+void CGameMgr::CheckSameStoneLeftCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep)
+{
+	int y = curIndex / OMOK_BOARD_STONE_COUNT;
+	int stoneIndex = curIndex - gap + (gap * OMOK_BOARD_STONE_COUNT);
+
+	// 본인 제외 최대 4번 검사
+	if (deep++ == 4)
+		return;
+
+	// 범위 검사
+	if (0 > stoneIndex || OMOK_BOARD_STONE_COUNT * OMOK_BOARD_STONE_COUNT <= stoneIndex)
+		return;
+
+	// 높이값 검사
+	if (stoneIndex / OMOK_BOARD_STONE_COUNT != y + gap)
+		return;
+
+	// 색상 검사
+	if (color != m_vStone[stoneIndex]->GetStoneInfo())
+		return;
+
+	sameColorCount++;
+	CheckSameStoneLeftCross(sameColorCount, stoneIndex, color, gap, deep);
+}
+
+bool CGameMgr::IsEnd()
 {
 	UINT sameColorCount = 1;
 
 	int index = m_pCurStone->GetIndex();
 	STONE_INFO color = m_pCurStone->GetStoneInfo();
 
-	sameColorCount += CheckSameStoneWidth(index, color, true);
-	sameColorCount += CheckSameStoneWidth(index, color, false);
-
+	CheckSameStoneWidth(sameColorCount, index, color, 1);
+	CheckSameStoneWidth(sameColorCount, index, color, -1);
 	if (5 <= sameColorCount)
 		return true;
 
-	return false;
-}
+	sameColorCount = 1;
+	CheckSameStoneHeight(sameColorCount, index, color, 1);
+	CheckSameStoneHeight(sameColorCount, index, color, -1);
+	if (5 <= sameColorCount)
+		return true;
 
-int CGameMgr::CheckSameStoneWidth(int index, STONE_INFO color, bool isRight)
-{
-	int count = 0;
-	int stoneIndex;
+	sameColorCount = 1;
+	CheckSameStoneRightCross(sameColorCount, index, color, 1);
+	CheckSameStoneRightCross(sameColorCount, index, color, -1);
+	if (5 <= sameColorCount)
+		return true;
 
-	// index 0부터 시작, %, / 결과값을 맞추기 위해 + 1하여 1부터 시작하게끔 만듦
-	int compenIndex = index + 1;
-	int compenWidth = OMOK_BOARD_STONE_COUNT + 1;
-	int y = compenIndex / compenWidth;
-
-	// 좌우 이동 검사
-	for (int i = 1; i <= 4; i++)
-	{
-		if(isRight)
-			stoneIndex = index + i;
-		else
-			stoneIndex = index - i;
-
-		// 범위 밖 검사
-		if (0 > stoneIndex || OMOK_BOARD_STONE_COUNT * OMOK_BOARD_STONE_COUNT < stoneIndex)
-			break;
-
-		// y 증가 여부 검사
-		if ((stoneIndex + 1) / compenWidth != y)
-			break;
-
-		// 다른색상 돌 검사
-		if (color != m_vStone[stoneIndex]->GetStoneInfo())
-			break;
-
-		count++;
-	}
-
-	return count;
-}
-
-bool CGameMgr::IsEnd()
-{
-	if (VictoryCheckWidth())
+	sameColorCount = 1;
+	CheckSameStoneLeftCross(sameColorCount, index, color, 1);
+	CheckSameStoneLeftCross(sameColorCount, index, color, -1);
+	if (5 <= sameColorCount)
 		return true;
 
 	return false;
@@ -166,7 +234,7 @@ void CGameMgr::Init()
 	}
 }
 
-void CGameMgr::Update()
+void CGameMgr::FinalUpdate()
 {
 	if (GAME_STATE::NONE == m_eGameState)
 		return;

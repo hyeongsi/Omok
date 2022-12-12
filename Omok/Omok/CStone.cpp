@@ -20,17 +20,20 @@ CStone::~CStone()
 
 void CStone::Update()
 {
-	if (STONE_INFO::NONE == m_eStoneInfo
-		&& IsCollision())
+	if (GAME_STATE::PLAY == CGameMgr::GetInst()->GetGameState())
 	{
-		if (KEY_STATE::AWAY == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
+		if (STONE_INFO::NONE == m_eStoneInfo
+			&& IsCollision())
 		{
-			STONE_INFO turn = CGameMgr::GetInst()->GetTurn();
+			if (KEY_STATE::AWAY == CKeyMgr::GetInst()->GetKeyState(KEY::LBTN))
+			{
+				STONE_INFO turn = CGameMgr::GetInst()->GetTurn();
 
-			tEvent stoneInfoEvent;
-			stoneInfoEvent.eEven = EVENT_TYPE::PLACEMENT_STONE;
-			stoneInfoEvent.lParam = (DWORD_PTR)this;
-			CEventMgr::GetInst()->AddEvent(stoneInfoEvent);
+				tEvent stoneInfoEvent;
+				stoneInfoEvent.eEven = EVENT_TYPE::PLACEMENT_STONE;
+				stoneInfoEvent.lParam = (DWORD_PTR)this;
+				CEventMgr::GetInst()->AddEvent(stoneInfoEvent);
+			}
 		}
 	}
 }
