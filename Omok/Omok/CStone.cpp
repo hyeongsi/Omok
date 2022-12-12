@@ -102,15 +102,23 @@ void CStone::RenderPlaceText(HDC _dc, STONE_INFO _eType)
 	CSelectGDI background(_dc);
 	CSelectGDI text(_dc);
 
-	if (STONE_INFO::BLACK == _eType)
+	if (this == CGameMgr::GetInst()->GetCurStone())
 	{
-		background.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::BACKGROUND);
-		text.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::TEXT);
+		background.SetColorRef(RGB(255, 127, 0), COLORREF_TYPE::BACKGROUND);
+		text.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
 	}
 	else
 	{
-		background.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
-		text.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
+		if (STONE_INFO::BLACK == _eType)
+		{
+			background.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::BACKGROUND);
+			text.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::TEXT);
+		}
+		else
+		{
+			background.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
+			text.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
+		}
 	}
 
 	DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);

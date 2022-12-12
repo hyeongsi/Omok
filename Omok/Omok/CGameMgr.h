@@ -24,6 +24,7 @@ public:
 	bool IsDebugMode() { return m_bDebugMode; }
 
 	CDotUI* GetDotUI() { return m_pDotUI; }
+	CStone* GetCurStone() { return m_pCurStone; }
 
 	static CGameMgr* GetInst();
 
