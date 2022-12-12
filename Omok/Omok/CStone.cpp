@@ -10,6 +10,7 @@
 CStone::CStone()
 	: m_eStoneInfo(STONE_INFO::NONE)
 	, m_uiSequence(0)
+	, m_iIndex(-1)
 {
 }
 

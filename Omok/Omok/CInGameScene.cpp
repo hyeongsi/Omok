@@ -27,6 +27,8 @@ void CInGameScene::Enter()
 	AddObject(pBoard, GROUP_TYPE::BOARD);
 
 	Vec2 vLT = pBoard->GetLT();
+	int id = 0;
+
 	for (int y = 0; y < OMOK_BOARD_COUNT + 1; y++)
 	{
 		for (int x = 0; x < OMOK_BOARD_COUNT + 1; x++)
@@ -38,6 +40,8 @@ void CInGameScene::Enter()
 			CStone* pStone = new CStone();
 			pStone->SetPos(vpos);
 			pStone->SetScale(Vec2(OMOK_BOARD_SIZE_X, OMOK_BOARD_SIZE_Y));
+			pStone->SetIndex(id++);
+
 			AddObject(pStone, GROUP_TYPE::STONE);
 		}
 	}

@@ -20,6 +20,8 @@ CGameMgr::CGameMgr()
 	, m_bDebugMode(false)
 	, m_pDotUI(nullptr)
 	, m_uiId(0)
+	, m_vStone()
+	, m_pCurStone(nullptr)
 {
 }
 
@@ -33,12 +35,62 @@ CGameMgr* CGameMgr::GetInst()
 	return &instance;
 }
 
+bool CGameMgr::VictoryCheckWidth()
+{
+	UINT sameColorCount = 1;
+
+	int index = m_pCurStone->GetIndex();
+	STONE_INFO color = m_pCurStone->GetStoneInfo();
+
+	sameColorCount += CheckSameStoneWidth(index, color, true);
+	sameColorCount += CheckSameStoneWidth(index, color, false);
+
+	if (5 <= sameColorCount)
+		return true;
+
+	return false;
+}
+
+int CGameMgr::CheckSameStoneWidth(int index, STONE_INFO color, bool isRight)
+{
+	int count = 0;
+	int stoneIndex;
+
+	// index 0부터 시작, %, / 결과값을 맞추기 위해 + 1하여 1부터 시작하게끔 만듦
+	int compenIndex = index + 1;
+	int compenWidth = OMOK_BOARD_STONE_COUNT + 1;
+	int y = compenIndex / compenWidth;
+
+	// 좌우 이동 검사
+	for (int i = 1; i <= 4; i++)
+	{
+		if(isRight)
+			stoneIndex = index + i;
+		else
+			stoneIndex = index - i;
+
+		// 범위 밖 검사
+		if (0 > stoneIndex || OMOK_BOARD_STONE_COUNT * OMOK_BOARD_STONE_COUNT < stoneIndex)
+			break;
+
+		// y 증가 여부 검사
+		if ((stoneIndex + 1) / compenWidth != y)
+			break;
+
+		// 다른색상 돌 검사
+		if (color != m_vStone[stoneIndex]->GetStoneInfo())
+			break;
+
+		count++;
+	}
+
+	return count;
+}
+
 bool CGameMgr::IsEnd()
 {
-	if (KEY_STATE::HOLD == CKeyMgr::GetInst()->GetKeyState(KEY::C))
-	{
+	if (VictoryCheckWidth())
 		return true;
-	}
 
 	return false;
 }
@@ -59,6 +111,8 @@ void CGameMgr::PlacementStone(CStone* stone)
 	// ui 위치 활성화, 위치 조정
 	m_pDotUI->SetEnable(true);
 	m_pDotUI->SetPos(stone->GetPos());
+
+	m_pCurStone = stone;
 
 	if (!IsEnd())
 		SkipTurn();
@@ -103,6 +157,13 @@ void CGameMgr::Init()
 	m_pDotUI = pDotUI;
 
 	m_uiId = 0;
+
+	vector<CObject*> v = CSceneMgr::GetInst()->GetCurScene()->GetGroupObject(GROUP_TYPE::STONE);
+	m_vStone.clear();
+	for (int i = 0; i < v.size(); i++)
+	{
+		m_vStone.emplace_back((CStone*)v[i]);
+	}
 }
 
 void CGameMgr::Update()

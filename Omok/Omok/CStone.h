@@ -8,6 +8,8 @@ private:
     STONE_INFO      m_eStoneInfo;
     UINT            m_uiSequence;
 
+    int             m_iIndex;
+
 public:
     void SetInfo(STONE_INFO _eType) { m_eStoneInfo = _eType; }
     STONE_INFO GetStoneInfo() { return m_eStoneInfo; }
@@ -15,6 +17,9 @@ public:
     void SetSequence(UINT i) { m_uiSequence = i; }
     UINT GetSequence() { return m_uiSequence; }
     
+    void SetIndex(int i) { m_iIndex = i; }
+    int GetIndex() { return m_iIndex; }
+
     bool IsCollision();
 
 public:

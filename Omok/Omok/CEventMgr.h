@@ -11,7 +11,7 @@ class CEventMgr
 {
 private:
 	vector<tEvent> m_vEvemt;
-
+	bool isPlacementStone;
 
 private:
 	void Excute(const tEvent& _eve);

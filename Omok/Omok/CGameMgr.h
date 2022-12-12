@@ -11,8 +11,10 @@ private:
 	bool				m_bDebugMode;
 
 	CDotUI*				m_pDotUI;
-
 	UINT				m_uiId;
+
+	vector<CStone*>		m_vStone;
+	CStone*				m_pCurStone;
 
 public:
 	void SetGameState(GAME_STATE _e) { m_eGameState = _e; }
@@ -24,6 +26,11 @@ public:
 	CDotUI* GetDotUI() { return m_pDotUI; }
 
 	static CGameMgr* GetInst();
+
+private:
+	bool VictoryCheckWidth();
+	int CheckSameStoneWidth(int index, STONE_INFO color, bool isRight);
+
 
 public:
 	bool IsEnd();

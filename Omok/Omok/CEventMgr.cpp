@@ -12,6 +12,7 @@
 #include "CDotUI.h"
 
 CEventMgr::CEventMgr()
+	: isPlacementStone(false)
 {
 }
 
@@ -25,6 +26,8 @@ void CEventMgr::Update()
 	{
 		Excute(m_vEvemt[i]);
 	}
+
+	isPlacementStone = false;
 
 	m_vEvemt.clear();
 }
@@ -45,9 +48,13 @@ void CEventMgr::Excute(const tEvent& _eve)
 		break;
 	case EVENT_TYPE::PLACEMENT_STONE:
 	{
-		// lParam : CStone Address
-		CStone* pStone = (CStone*)_eve.lParam;
-		CGameMgr::GetInst()->PlacementStone(pStone);
+		if (!isPlacementStone)
+		{
+			// lParam : CStone Address
+			CStone* pStone = (CStone*)_eve.lParam;
+			CGameMgr::GetInst()->PlacementStone(pStone);
+			isPlacementStone = true;
+		}
 	}
 		break;
 	case EVENT_TYPE::SKIP_TURN:

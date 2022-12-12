@@ -22,6 +22,7 @@ enum class SCENE_TYPE
 
 constexpr int OMOK_BALL_SIZE = 22;
 constexpr int OMOK_BOARD_COUNT = 18;
+constexpr int OMOK_BOARD_STONE_COUNT = 19;
 
 constexpr int OMOK_BOARD_SIZE_X = 38;
 constexpr int OMOK_BOARD_SIZE_Y = 36;

@@ -7,6 +7,7 @@ class CBoard :
 {
 private:
 
+
 public:
     Vec2 GetLT();
     Vec2 GetRB();
