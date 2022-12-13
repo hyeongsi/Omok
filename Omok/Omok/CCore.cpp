@@ -5,6 +5,10 @@
 #include "CSceneMgr.h"
 #include "CGameMgr.h"
 #include "CEventMgr.h"
+#include "CPathMgr.h"
+
+constexpr int RESOLUTION_WIDTH = 1024;
+constexpr int RESOLUTION_HEIGHT = 728;
 
 CCore::CCore()
 	: m_hInst()
@@ -48,7 +52,7 @@ void CCore::Init(HINSTANCE _hInst, HWND _hWnd)
 	m_hWnd = _hWnd;
 
 	// 클라이언트 사이즈 설정
-	m_ptResolution = POINT{ 1024, 728 };
+	m_ptResolution = POINT{ RESOLUTION_WIDTH, RESOLUTION_HEIGHT };
 	ChangeWindowSize(m_ptResolution, m_bMenu);
 	// 백버퍼 생성
 	CreateHDC();
@@ -56,6 +60,7 @@ void CCore::Init(HINSTANCE _hInst, HWND _hWnd)
 	CreateBrushPen();
 
 	// Mgr Init
+	CPathMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
 	CSceneMgr::GetInst()->Init();
 }

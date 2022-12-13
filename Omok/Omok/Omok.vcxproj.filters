@@ -41,9 +41,6 @@
     <Filter Include="Engine\03. Manager\GameMgr">
       <UniqueIdentifier>{146c2df9-ee51-4616-9a32-903f094a5ca5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Manager\KeyMGr">
-      <UniqueIdentifier>{1cbcceac-c87e-4c8f-9356-ac57c1783b32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\04. Object\Stone">
       <UniqueIdentifier>{674259af-3b2b-41e4-a1b5-2c5e9ca085e6}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,15 @@
     </Filter>
     <Filter Include="Engine\04. Object\UI\DotUI">
       <UniqueIdentifier>{7038c060-cc87-49a4-965d-722f16730522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\BackGround">
+      <UniqueIdentifier>{22a740a3-2050-4335-9506-d55c81d0d0ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\PathMgr">
+      <UniqueIdentifier>{27213ef7-963d-4b8f-b866-c226ba08d064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\KeyMgr">
+      <UniqueIdentifier>{1cbcceac-c87e-4c8f-9356-ac57c1783b32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,24 +111,22 @@
       <Filter>Engine\03. Manager\GameMgr</Filter>
     </ClInclude>
     <ClInclude Include="CKeyMgr.h">
-      <Filter>Engine\03. Manager\KeyMGr</Filter>
+      <Filter>Engine\03. Manager\KeyMgr</Filter>
     </ClInclude>
     <ClInclude Include="CDotUI.h">
       <Filter>Engine\04. Object\UI\DotUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CBackGround.h">
+      <Filter>Engine\04. Object\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="CPathMgr.h">
+      <Filter>Engine\03. Manager\PathMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Omok.rc">
       <Filter>리소스 파일</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Omok.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -157,10 +161,16 @@
       <Filter>Engine\03. Manager\GameMgr</Filter>
     </ClCompile>
     <ClCompile Include="CKeyMgr.cpp">
-      <Filter>Engine\03. Manager\KeyMGr</Filter>
+      <Filter>Engine\03. Manager\KeyMgr</Filter>
     </ClCompile>
     <ClCompile Include="CDotUI.cpp">
       <Filter>Engine\04. Object\UI\DotUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CBackGround.cpp">
+      <Filter>Engine\04. Object\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathMgr.cpp">
+      <Filter>Engine\03. Manager\PathMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 
 #include "CBoard.h"
 #include "CStone.h"
+#include "CBackGround.h"
 
 #include "CGameMgr.h"
 
@@ -23,6 +24,9 @@ void CInGameScene::Update()
 void CInGameScene::Enter()
 {
 	// create object
+	CBackGround* pBg = new CBackGround();
+	AddObject(pBg, GROUP_TYPE::BACK_GROUND);
+
 	CBoard* pBoard = new CBoard();
 	AddObject(pBoard, GROUP_TYPE::BOARD);
 

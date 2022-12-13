@@ -19,6 +19,7 @@ private:
 
 public:
 	static CCore* GetInst();
+	HINSTANCE GetHInstance() { return m_hInst; }
 	HWND GetMainHwnd() { return m_hWnd; }
 	HDC GetMainDC() { return m_hDC; }
 	HDC GetBDC() { return m_hBDC; }

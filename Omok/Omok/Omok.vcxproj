@@ -149,11 +149,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CDotUI.h" />
     <ClInclude Include="CEventMgr.h" />
     <ClInclude Include="CGameMgr.h" />
     <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="CPathMgr.h" />
     <ClInclude Include="CStone.h" />
     <ClInclude Include="CBoard.h" />
     <ClInclude Include="CInGameScene.h" />
@@ -169,11 +171,13 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CDotUI.cpp" />
     <ClCompile Include="CEventMgr.cpp" />
     <ClCompile Include="CGameMgr.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
+    <ClCompile Include="CPathMgr.cpp" />
     <ClCompile Include="CStone.cpp" />
     <ClCompile Include="CBoard.cpp" />
     <ClCompile Include="CInGameScene.cpp" />
@@ -185,10 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Omok.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Omok.ico" />
-    <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
