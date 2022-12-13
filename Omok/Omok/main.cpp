@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "CCore.h"
 
+#include "CEventMgr.h"
+
 #define MAX_LOADSTRING 100
 
 HINSTANCE g_hInst;
@@ -69,6 +71,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_OMOK_ICON));
 
+
     return RegisterClassExW(&wcex);
 }
 
@@ -76,7 +79,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    g_hInst = hInstance;
 
-   g_hWnd = CreateWindowW(szWindowClass, L"오목", WS_OVERLAPPEDWINDOW,
+   g_hWnd = CreateWindowW(szWindowClass, L"오목", WS_SYSMENU | WS_MINIMIZEBOX,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!g_hWnd)
@@ -102,8 +105,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             int wmId = LOWORD(wParam);
             switch (wmId)
             {
+            case IDM_ABOUT:
+                DialogBox(g_hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+                break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
+                break;
+            case IDM_NEW_GAME:
+                tEvent t;
+                t.eEven = EVENT_TYPE::RESTART_GAME;
+                CEventMgr::GetInst()->AddEvent(t);
                 break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
@@ -117,4 +128,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
+}
+
+INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    UNREFERENCED_PARAMETER(lParam);
+    switch (message)
+    {
+    case WM_INITDIALOG:
+        return (INT_PTR)TRUE;
+
+    case WM_COMMAND:
+        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+        {
+            EndDialog(hDlg, LOWORD(wParam));
+            return (INT_PTR)TRUE;
+        }
+        break;
+    }
+    return (INT_PTR)FALSE;
 }
