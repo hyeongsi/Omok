@@ -9,7 +9,8 @@ enum class GROUP_TYPE
 	BOARD,
 	STONE,
 
-	UI = 31,
+	UI = 30,
+	FADE = 31,
 	END = 32,
 };
 

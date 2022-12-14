@@ -156,6 +156,7 @@
     <ClInclude Include="CGameMgr.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CPathMgr.h" />
+    <ClInclude Include="CScreen.h" />
     <ClInclude Include="CStone.h" />
     <ClInclude Include="CBoard.h" />
     <ClInclude Include="CInGameScene.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="CGameMgr.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CPathMgr.cpp" />
+    <ClCompile Include="CScreen.cpp" />
     <ClCompile Include="CStone.cpp" />
     <ClCompile Include="CBoard.cpp" />
     <ClCompile Include="CInGameScene.cpp" />

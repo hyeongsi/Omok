@@ -68,6 +68,9 @@
     <Filter Include="Engine\03. Manager\TimeMgr">
       <UniqueIdentifier>{2e6f0816-bc02-4694-8e33-85b5c527b6be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04. Object\Screen">
+      <UniqueIdentifier>{f6df2b27-830e-49cf-a53b-bba0c2ae0913}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -134,6 +137,9 @@
     <ClInclude Include="CTimeMgr.h">
       <Filter>Engine\03. Manager\TimeMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CScreen.h">
+      <Filter>Engine\04. Object\Screen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Omok.rc">
@@ -189,6 +195,9 @@
     </ClCompile>
     <ClCompile Include="CTimeMgr.cpp">
       <Filter>Engine\03. Manager\TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CScreen.cpp">
+      <Filter>Engine\04. Object\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,7 @@
 #include "CStone.h"
 #include "CDotUI.h"
 #include "CTurnUI.h"
+#include "CScreen.h"
 
 #include "CCore.h"
 
@@ -418,11 +419,15 @@ void CGameMgr::Init()
 	CSceneMgr::GetInst()->GetCurScene()->AddObject(pDotUI, GROUP_TYPE::UI);
 	m_pDotUI = pDotUI;
 
+	m_uiId = 0;
+
 	CTurnUI* pTurnUI = new CTurnUI();
 	CSceneMgr::GetInst()->GetCurScene()->AddObject(pTurnUI, GROUP_TYPE::UI);
 	m_pTurnUI = pTurnUI;
 
-	m_uiId = 0;
+	CScreen* pScreen = new CScreen();
+	CSceneMgr::GetInst()->GetCurScene()->AddObject(pScreen, GROUP_TYPE::FADE);
+	m_pScreen = pScreen;
 
 	vector<CObject*> v = CSceneMgr::GetInst()->GetCurScene()->GetGroupObject(GROUP_TYPE::STONE);
 	m_vStone.clear();

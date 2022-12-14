@@ -2,6 +2,7 @@
 
 class CDotUI;
 class CTurnUI;
+class CScreen;
 class CStone;
 
 constexpr double TURN_LIMIT_SECOND = 10.;
@@ -17,6 +18,7 @@ private:
 	UINT				m_uiId;
 
 	CTurnUI*			m_pTurnUI;
+	CScreen*			m_pScreen;
 
 	vector<CStone*>		m_vStone;
 	CStone*				m_pCurStone;
