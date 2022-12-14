@@ -36,8 +36,13 @@ public:
 private:
 	void CheckSameStoneWidth(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
 	void CheckSameStoneHeight(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
-	void CheckSameStoneRightCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
-	void CheckSameStoneLeftCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
+	void CheckSameStoneRCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
+	void CheckSameStoneLCross(UINT& sameColorCount, int curIndex, STONE_INFO color, int gap, int deep = 0);
+
+	void SetVictoryStoneWidth(int curIndex, STONE_INFO color);
+	void SetVictoryStoneHeight(int curIndex, STONE_INFO color);
+	void SetVictoryStoneRCross(int curIndex, STONE_INFO color);
+	void SetVictoryStoneLCross(int curIndex, STONE_INFO color);
 
 public:
 	bool IsEnd();

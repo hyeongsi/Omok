@@ -22,16 +22,19 @@ CTurnUI::~CTurnUI()
 
 void CTurnUI::Update()
 {
-	m_dCurTimeAcc += CTimeMgr::GetInst()->GetDT();
-
-	if (m_dCurTimeAcc >= TURN_LIMIT_SECOND)
+	if (GAME_STATE::PLAY == CGameMgr::GetInst()->GetGameState())
 	{
-		m_dCurTimeAcc = TURN_LIMIT_SECOND;
+		m_dCurTimeAcc += CTimeMgr::GetInst()->GetDT();
 
-		tEvent skipTurnEvent;
-		skipTurnEvent.eEven = EVENT_TYPE::SKIP_TURN;
+		if (m_dCurTimeAcc >= TURN_LIMIT_SECOND)
+		{
+			m_dCurTimeAcc = TURN_LIMIT_SECOND;
 
-		CEventMgr::GetInst()->AddEvent(skipTurnEvent);
+			tEvent skipTurnEvent;
+			skipTurnEvent.eEven = EVENT_TYPE::SKIP_TURN;
+
+			CEventMgr::GetInst()->AddEvent(skipTurnEvent);
+		}
 	}
 }
 
@@ -151,16 +154,30 @@ void CTurnUI::RenderTimerBar(HDC _dc, Vec2 _margin, STONE_INFO info)
 	CSelectGDI brush(_dc);
 	if(CGameMgr::GetInst()->GetTurn() == info)
 	{
-		brush.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::GREEN));
+		if (GAME_STATE::PLAY == CGameMgr::GetInst()->GetGameState())
+		{
+			brush.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::GREEN));
 
-		double ratio = 1 - ((TURN_LIMIT_SECOND - m_dCurTimeAcc) / TURN_LIMIT_SECOND);
-		int percent = (int)(((rt.x + 1) - (lt.x - 1)) * ratio);
+			double ratio = 1 - ((TURN_LIMIT_SECOND - m_dCurTimeAcc) / TURN_LIMIT_SECOND);
+			int percent = (int)(((rt.x + 1) - (lt.x - 1)) * ratio);
 
-		Rectangle(_dc
-			, (int)lt.x - 1
-			, (int)lt.y + 1
-			, (int)rt.x + 1 - percent
-			, (int)rt.y - 1);
+			Rectangle(_dc
+				, (int)lt.x - 1
+				, (int)lt.y + 1
+				, (int)rt.x + 1 - percent
+				, (int)rt.y - 1);
+		}
+		else
+		{
+			brush.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::BLACK));
+
+			Rectangle(_dc
+				, (int)lt.x - 1
+				, (int)lt.y + 1
+				, (int)rt.x + 1
+				, (int)rt.y - 1);
+		}
+		
 	}
 	else
 	{

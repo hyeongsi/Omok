@@ -11,6 +11,7 @@ CStone::CStone()
 	: m_eStoneInfo(STONE_INFO::NONE)
 	, m_uiSequence(0)
 	, m_iIndex(-1)
+	, m_bIsVictoryStone(false)
 {
 }
 
@@ -43,6 +44,7 @@ void CStone::Render(HDC _dc)
 {
 	RenderBody(_dc);
 	RenderPlaceText(_dc, m_eStoneInfo);
+	RenderVictoryStone(_dc);
 }
 
 bool CStone::IsCollision()
@@ -117,6 +119,16 @@ void CStone::RenderPlaceText(HDC _dc, STONE_INFO _eType)
 	}
 
 	DrawText(_dc, sequenceStr.c_str(), (int)sequenceStr.length(), &rt, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+}
+
+void CStone::RenderVictoryStone(HDC _dc)
+{
+	if (m_bIsVictoryStone)
+	{
+		CSelectGDI gdi(_dc, CCore::GetInst()->GetPEN(PEN_TYPE::RED));
+		gdi.SetBrush(CCore::GetInst()->GetBrush(BRUSH_TYPE::HOLLOW));
+		RenderRect(_dc);
+	}
 }
 
 void CStone::RenderEllipse(HDC _dc)
