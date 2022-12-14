@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CTimeMgr.h"
 
 CTimeMgr::CTimeMgr()
@@ -33,7 +33,7 @@ void CTimeMgr::Update()
 
 	m_llPrevCount = m_llCurCount;
 
-	// dt°ª 1/60 Á¦ÇÑ
+	// dtê°’ 1/60 ì œí•œ
 	if (m_dDt > (1. / 60.))
 		m_dDt = 1. / 60.;
 }
