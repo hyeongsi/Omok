@@ -6,6 +6,7 @@
 #include "CGameMgr.h"
 #include "CEventMgr.h"
 #include "CPathMgr.h"
+#include "CTimeMgr.h"
 
 constexpr int RESOLUTION_WIDTH = 1024;
 constexpr int RESOLUTION_HEIGHT = 728;
@@ -60,6 +61,7 @@ void CCore::Init(HINSTANCE _hInst, HWND _hWnd)
 	CreateBrushPen();
 
 	// Mgr Init
+	CTimeMgr::GetInst()->Init();
 	CPathMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
 	CSceneMgr::GetInst()->Init();
@@ -76,6 +78,7 @@ void CCore::Progress()
 
 void CCore::Update()
 {
+	CTimeMgr::GetInst()->Update();
 	CKeyMgr::GetInst()->Update();
 	CSceneMgr::GetInst()->Update();
 }
@@ -121,6 +124,7 @@ void CCore::CreateBrushPen()
 	m_arrBrush[(UINT)BRUSH_TYPE::BLACK] = CreateSolidBrush(COLORREF(RGB(0, 0, 0)));
 	m_arrBrush[(UINT)BRUSH_TYPE::WHITE] = CreateSolidBrush(COLORREF(RGB(255, 255, 255)));
 	m_arrBrush[(UINT)BRUSH_TYPE::RED] = CreateSolidBrush(COLORREF(RGB(255, 0, 0)));
+	m_arrBrush[(UINT)BRUSH_TYPE::GREEN] = CreateSolidBrush(COLORREF(RGB(0, 255, 0)));
 	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
 
 	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, COLORREF(RGB(255, 0, 0)));

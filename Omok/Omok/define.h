@@ -20,12 +20,14 @@ enum class SCENE_TYPE
 	END,
 };
 
-constexpr int OMOK_BALL_SIZE = 22;
+constexpr int OMOK_STONE_SIZE = 22;
 constexpr int OMOK_BOARD_COUNT = 14;
 constexpr int OMOK_BOARD_STONE_COUNT = 15;
 
 constexpr int OMOK_BOARD_SIZE_X = 38;
 constexpr int OMOK_BOARD_SIZE_Y = 36;
+
+constexpr int OMOK_STONE_SMALL_SIZE = 10;
 
 enum class EVENT_TYPE
 {
@@ -40,6 +42,7 @@ enum class EVENT_TYPE
 enum class GAME_STATE
 {
 	NONE,
+	READY,
 	PLAY,
 	VICTORY,
 	END
@@ -58,6 +61,7 @@ enum class BRUSH_TYPE
 	BLACK,
 	WHITE,
 	RED,
+	GREEN,
 	HOLLOW,
 
 	END,

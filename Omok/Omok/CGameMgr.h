@@ -1,7 +1,10 @@
 ﻿#pragma once
 
 class CDotUI;
+class CTurnUI;
 class CStone;
+
+constexpr double TURN_LIMIT_SECOND = 10.;
 
 class CGameMgr
 {
@@ -12,6 +15,8 @@ private:
 
 	CDotUI*				m_pDotUI;
 	UINT				m_uiId;
+
+	CTurnUI*			m_pTurnUI;
 
 	vector<CStone*>		m_vStone;
 	CStone*				m_pCurStone;

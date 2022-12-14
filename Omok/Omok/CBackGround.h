@@ -15,7 +15,7 @@ public:
 
 public:
     CBackGround();
-    ~CBackGround();
+    virtual ~CBackGround();
     
 };
 

@@ -62,6 +62,12 @@
     <Filter Include="Engine\03. Manager\KeyMgr">
       <UniqueIdentifier>{1cbcceac-c87e-4c8f-9356-ac57c1783b32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04. Object\UI\TurnUI">
+      <UniqueIdentifier>{9800cb8a-d3dc-4357-86cf-e73d03fc30b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\TimeMgr">
+      <UniqueIdentifier>{2e6f0816-bc02-4694-8e33-85b5c527b6be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -122,6 +128,12 @@
     <ClInclude Include="CPathMgr.h">
       <Filter>Engine\03. Manager\PathMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CTurnUI.h">
+      <Filter>Engine\04. Object\UI\TurnUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeMgr.h">
+      <Filter>Engine\03. Manager\TimeMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Omok.rc">
@@ -171,6 +183,12 @@
     </ClCompile>
     <ClCompile Include="CPathMgr.cpp">
       <Filter>Engine\03. Manager\PathMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CTurnUI.cpp">
+      <Filter>Engine\04. Object\UI\TurnUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeMgr.cpp">
+      <Filter>Engine\03. Manager\TimeMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

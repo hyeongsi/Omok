@@ -9,11 +9,14 @@ private:
 	COLORREF	m_defaultBkColor;
 	COLORREF	m_defaultTextColor;
 
+	bool		m_bIsTransparentMode;
+
 public:
 	void SetPen(HPEN _hpen);
 	void SetBrush(HBRUSH _hbrush);
 
 	void SetColorRef(COLORREF _colorRef, COLORREF_TYPE _eType);
+	void SetTransparentBkMode();
 
 public:
 	CSelectGDI(HDC _dc);

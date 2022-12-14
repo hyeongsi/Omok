@@ -20,7 +20,8 @@ CStone::~CStone()
 
 void CStone::Update()
 {
-	if (GAME_STATE::PLAY == CGameMgr::GetInst()->GetGameState())
+	if (GAME_STATE::READY == CGameMgr::GetInst()->GetGameState()
+		|| GAME_STATE::PLAY == CGameMgr::GetInst()->GetGameState())
 	{
 		if (STONE_INFO::NONE == m_eStoneInfo
 			&& IsCollision())
@@ -94,25 +95,24 @@ void CStone::RenderPlaceText(HDC _dc, STONE_INFO _eType)
 					(LONG)(pos.x + scale.x / 2.f),
 					(LONG)(pos.y + scale.y / 2.f) };
 
-	CSelectGDI background(_dc);
-	CSelectGDI text(_dc);
+	CSelectGDI gdi(_dc);
 
 	if (this == CGameMgr::GetInst()->GetCurStone())
 	{
-		background.SetColorRef(RGB(255, 127, 0), COLORREF_TYPE::BACKGROUND);
-		text.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
+		gdi.SetColorRef(RGB(255, 127, 0), COLORREF_TYPE::BACKGROUND);
+		gdi.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
 	}
 	else
 	{
 		if (STONE_INFO::BLACK == _eType)
 		{
-			background.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::BACKGROUND);
-			text.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::TEXT);
+			gdi.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::BACKGROUND);
+			gdi.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::TEXT);
 		}
 		else
 		{
-			background.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
-			text.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
+			gdi.SetColorRef(RGB(255, 255, 255), COLORREF_TYPE::BACKGROUND);
+			gdi.SetColorRef(RGB(0, 0, 0), COLORREF_TYPE::TEXT);
 		}
 	}
 

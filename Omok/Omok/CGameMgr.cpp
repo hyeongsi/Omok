@@ -10,6 +10,7 @@
 
 #include "CStone.h"
 #include "CDotUI.h"
+#include "CTurnUI.h"
 
 #include "CCore.h"
 
@@ -20,6 +21,7 @@ CGameMgr::CGameMgr()
 	, m_bDebugMode(false)
 	, m_pDotUI(nullptr)
 	, m_uiId(0)
+	, m_pTurnUI(nullptr)
 	, m_vStone()
 	, m_pCurStone(nullptr)
 {
@@ -169,10 +171,14 @@ void CGameMgr::SkipTurn()
 		m_eTurn = STONE_INFO::WHITE;
 	else if (STONE_INFO::WHITE == m_eTurn)
 		m_eTurn = STONE_INFO::BLACK;
+
+	m_pTurnUI->InitCurTimeAcc();
 }
 
 void CGameMgr::PlacementStone(CStone* stone)
 {
+	m_eGameState = GAME_STATE::PLAY;
+
 	stone->SetInfo(m_eTurn);
 	stone->SetSequence(++m_uiId);
 
@@ -215,7 +221,7 @@ void CGameMgr::Victory(STONE_INFO _e)
 void CGameMgr::Init()
 {
 	// 매개변수 초기화
-	m_eGameState = GAME_STATE::PLAY;
+	m_eGameState = GAME_STATE::READY;
 	m_eTurn = STONE_INFO::BLACK;
 	m_bDebugMode = false;
 
@@ -223,6 +229,10 @@ void CGameMgr::Init()
 	pDotUI->SetScale(Vec2(5.f, 5.f));
 	CSceneMgr::GetInst()->GetCurScene()->AddObject(pDotUI, GROUP_TYPE::UI);
 	m_pDotUI = pDotUI;
+
+	CTurnUI* pTurnUI = new CTurnUI();
+	CSceneMgr::GetInst()->GetCurScene()->AddObject(pTurnUI, GROUP_TYPE::UI);
+	m_pTurnUI = pTurnUI;
 
 	m_uiId = 0;
 
@@ -271,10 +281,11 @@ void CGameMgr::Render(HDC _dc)
 		}
 	}
 
-	if (GAME_STATE::PLAY == m_eGameState)
+	// 마우스 위치에 현재 턴의 돌 색상을 출력한다.
+	if (GAME_STATE::PLAY == m_eGameState
+		|| GAME_STATE::READY == m_eGameState)
 	{
 		const int margin = 15;
-		const int size = 10;
 
 		Vec2 mousePos = CKeyMgr::GetInst()->GetMousePos();
 		mousePos += margin;
@@ -290,9 +301,9 @@ void CGameMgr::Render(HDC _dc)
 		}
 
 		Ellipse(_dc
-			, (int)(mousePos.x - size)
-			, (int)(mousePos.y - size)
-			, (int)(mousePos.x + size)
-			, (int)(mousePos.y + size));
+			, (int)(mousePos.x - OMOK_STONE_SMALL_SIZE)
+			, (int)(mousePos.y - OMOK_STONE_SMALL_SIZE)
+			, (int)(mousePos.x + OMOK_STONE_SMALL_SIZE)
+			, (int)(mousePos.y + OMOK_STONE_SMALL_SIZE));
 	}
 }
