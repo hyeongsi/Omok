@@ -11,7 +11,7 @@ CBackGround::CBackGround()
 	POINT resolution = CCore::GetInst()->GetResolution();
 
 	wstring path = CPathMgr::GetInst()->GetRealPath();
-	path += L"\\content\\texture\\background.bmp";
+	path += L"\\Resource\\texture\\background.bmp";
 	m_hBitmap = (HBITMAP)LoadImage(CCore::GetInst()->GetHInstance()
 		, path.c_str()
 		, IMAGE_BITMAP
