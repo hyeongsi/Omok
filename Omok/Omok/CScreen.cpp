@@ -44,7 +44,7 @@ void CScreen::Render(HDC _dc)
 	POINT resolution = CCore::GetInst()->GetResolution();
 
 	double ratio = m_dCurrentTime / FADE_TIME;
-	int alpha = 255 * (1 - ratio);
+	int alpha = int(255 * (1 - ratio));
 
 	BLENDFUNCTION bf;
 	bf.BlendOp = AC_SRC_OVER;
