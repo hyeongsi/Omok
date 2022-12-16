@@ -16,8 +16,8 @@ private:
 
 	CDotUI*				m_pDotUI;
 	UINT				m_uiId;
-
 	CTurnUI*			m_pTurnUI;
+
 	CScreen*			m_pScreen;
 
 	vector<CStone*>		m_vStone;

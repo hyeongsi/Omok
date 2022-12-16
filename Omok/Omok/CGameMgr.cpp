@@ -23,6 +23,7 @@ CGameMgr::CGameMgr()
 	, m_pDotUI(nullptr)
 	, m_uiId(0)
 	, m_pTurnUI(nullptr)
+	, m_pScreen(nullptr)
 	, m_vStone()
 	, m_pCurStone(nullptr)
 {
