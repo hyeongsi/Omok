@@ -33,8 +33,19 @@ C++와 Win32API를 이용하여 혼자서 플레이 할 수 있는 오목 게임
 <br>
 
 ## 시연 영상
-```
-```
+<details>
+  <summary>Play1 - victory</summary>
+  <img width="976" src="https://github.com/parkSihyeong46/Omok/blob/main/README_Image/cut1.gif?raw=true"/>
+</details>
+<details>
+  <summary>Play2 - sequence</summary>
+  <img width="976" src="https://github.com/parkSihyeong46/Omok/blob/main/README_Image/cut2.gif?raw=true"/>
+</details>
+<details>
+  <summary>Play3 - function</summary>
+  <img width="976" src="https://github.com/parkSihyeong46/Omok/blob/main/README_Image/cut3.gif?raw=true"/>
+</details>
+
 <br>
 
 ## 배운 점
