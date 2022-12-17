@@ -2,6 +2,10 @@
 <br>
 
 ## 프로젝트 소개
+<div>
+<img width="400" src="https://github.com/parkSihyeong46/Omok/blob/main/README_Image/Play1.PNG?raw=true"/>
+<img width="400" src="https://github.com/parkSihyeong46/Omok/blob/main/README_Image/Play2.PNG?raw=true"/>
+</div>
 
 ### 개요
 ```
