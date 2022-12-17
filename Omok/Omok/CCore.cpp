@@ -7,6 +7,7 @@
 #include "CEventMgr.h"
 #include "CPathMgr.h"
 #include "CTimeMgr.h"
+#include "CSoundMgr.h"
 
 constexpr int RESOLUTION_WIDTH = 1024;
 constexpr int RESOLUTION_HEIGHT = 728;
@@ -64,6 +65,7 @@ void CCore::Init(HINSTANCE _hInst, HWND _hWnd)
 	CTimeMgr::GetInst()->Init();
 	CPathMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
+	CSoundMgr::GetInst()->Init();
 	CSceneMgr::GetInst()->Init();
 }
 

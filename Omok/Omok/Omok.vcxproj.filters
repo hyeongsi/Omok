@@ -71,6 +71,9 @@
     <Filter Include="Engine\04. Object\Screen">
       <UniqueIdentifier>{f6df2b27-830e-49cf-a53b-bba0c2ae0913}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\SoundMgr">
+      <UniqueIdentifier>{643eab2e-8d28-4309-b78c-73cee7a7e093}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -140,6 +143,9 @@
     <ClInclude Include="CScreen.h">
       <Filter>Engine\04. Object\Screen</Filter>
     </ClInclude>
+    <ClInclude Include="CSoundMgr.h">
+      <Filter>Engine\03. Manager\SoundMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Omok.rc">
@@ -198,6 +204,9 @@
     </ClCompile>
     <ClCompile Include="CScreen.cpp">
       <Filter>Engine\04. Object\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundMgr.cpp">
+      <Filter>Engine\03. Manager\SoundMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

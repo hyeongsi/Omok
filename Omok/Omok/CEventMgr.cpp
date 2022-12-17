@@ -6,6 +6,7 @@
 #include "CScene.h"
 #include "CSceneMgr.h"
 #include "CGameMgr.h"
+#include "CSoundMgr.h"
 
 #include "CStone.h"
 #include "CBoard.h"
@@ -51,6 +52,8 @@ void CEventMgr::Excute(const tEvent& _eve)
 		if (!isPlacementStone)
 		{
 			// lParam : CStone Address
+			CSoundMgr::GetInst()->Play(L"replacement");
+
 			CStone* pStone = (CStone*)_eve.lParam;
 			CGameMgr::GetInst()->PlacementStone(pStone);
 			isPlacementStone = true;
